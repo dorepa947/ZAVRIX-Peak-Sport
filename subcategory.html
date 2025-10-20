@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Products — ZAVRIX Peak Sport</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(12,30,40,0.03));
+  border-radius: var(--radius);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent, rgba(140,227,0,0.03), transparent);
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+.page-header h1 {
+  color: var(--white);
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.page-header p {
+  color: var(--muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
+
+.product-card {
+  position: relative;
+  cursor: pointer;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
+  border-radius: 16px;
+  padding: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.04);
+  transform: translateY(30px);
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.product-card.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.product-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(2,8,12,0.8);
+  border-color: rgba(140,227,0,0.2);
+}
+
+.product-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent, rgba(140,227,0,0.03), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.product-card:hover::before {
+  opacity: 1;
+}
+
+.product-image {
+  width: 100%;
+  height: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(180deg,#072233,#0f3950);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.1);
+}
+
+.product-info h3 {
+  color: var(--white);
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  transition: transform 0.3s;
+}
+
+.product-card:hover .product-info h3 {
+  transform: translateX(5px);
+}
+
+.product-info p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  transition: transform 0.3s 0.1s;
+}
+
+.product-card:hover .product-info p {
+  transform: translateX(3px);
+}
+
+.product-features {
+  margin-bottom: 16px;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-list li {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+  padding-left: 16px;
+  position: relative;
+}
+
+.feature-list li::before {
+  content: "•";
+  color: var(--accent);
+  position: absolute;
+  left: 0;
+}
+
+.product-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.view-product-btn {
+  background: linear-gradient(90deg, var(--accent), #70d600);
+  color: #02110a;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.view-product-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.6s;
+}
+
+.view-product-btn:hover::before {
+  left: 100%;
+}
+
+.view-product-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(140,227,0,0.3);
+}
+
+.product-tag {
+  background: rgba(255,255,255,0.03);
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.75rem;
+  border: 1px solid rgba(140,227,0,0.08);
+}
+
+.loading {
+  text-align: center;
+  color: var(--muted);
+  font-size: 1.2rem;
+  margin: 40px 0;
+}
+
+.error {
+  text-align: center;
+  color: var(--accent-2);
+  font-size: 1.1rem;
+  margin: 40px 0;
+  padding: 20px;
+  background: rgba(255,60,0,0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255,60,0,0.2);
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 2rem;
+  }
+  
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .product-card {
+    padding: 16px;
+  }
+  
+  .product-image {
+    height: 180px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <img src="assets/logo.png" alt="ZAVRIX Peak Sport Logo" onerror="this.src='https://via.placeholder.com/120x120?text=Logo'">
+      <div class="brand-text">
+        <h1><span class="brand-main">ZAVRIX</span> <span class="brand-accent">Peak Sport</span></h1>
+        <p>Premium quality sportswear — performance tested</p>
+      </div>
+    </div>
+    <nav style="display: flex; flex-direction: row;" >
+      <a href="index.html">Home</a>
+      <a href="categories.html">Categories</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <div class="theme-toggle-slider"></div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs">
+    <a href="index.html">Home</a>
+    <span class="separator">/</span>
+    <a href="categories.html">Categories</a>
+    <span class="separator">/</span>
+    <span id="breadcrumb-current">Products</span>
+  </nav>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1 id="category-title">Products</h1>
+    <p id="category-description">Explore our premium collection of high-quality sportswear products.</p>
+  </div>
+
+  <!-- Loading State -->
+  <div id="loading" class="loading">Loading products...</div>
+
+  <!-- Error State -->
+  <div id="error" class="error" style="display: none;">Error loading products. Please try again.</div>
+
+  <!-- Products Grid -->
+  <div class="products-grid" id="productsGrid" style="display: none;">
+    <!-- Products will be loaded here -->
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p style="font-weight:600;color:#fff"><span style="color:var(--accent)">ZAVRIX Peak Sport</span> — Manufactured in Sialkot</p>
+    <div>
+      <a href="https://wa.me/923291430316" class="social-link" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"> +92&nbsp;329&nbsp;1430316</a>
+      <a href="https://www.instagram.com/zavrix_sport?igsh=dnlrMW15andnZHEx" class="social-link" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"> @zavrix_sport</a>
+      <a href="https://www.facebook.com/share/18DNVYbYHb/" class="social-link" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"> Facebook</a>
+      <a href="mailto:zavrixsport@gmail.com" class="social-link" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email"> zavrixsport@gmail.com</a>
+    </div>
+    <p style="margin-top:12px;color:#999">© <span id="yr"></span> ZAVRIX Peak Sport — All rights reserved</p>
+  </footer>
+
+</div>
+
+<script>
+// Year
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// Global state
+let appData = null;
+let currentCategory = null;
+
+// Get category from URL parameter
+function getCategoryFromURL() {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('category');
+}
+
+// Load data and initialize app
+async function loadData() {
+  try {
+    const res = await fetch('assets/data/products.json', { cache: 'no-store' });
+    appData = await res.json();
+    currentCategory = getCategoryFromURL();
+    
+    if (!currentCategory || !appData.categories[currentCategory]) {
+      showError();
+      return;
+    }
+    
+    renderProducts();
+    setupCardObservers();
+  } catch (e) {
+    console.error('Failed to load products.json', e);
+    showError();
+  }
+}
+
+// Show error state
+function showError() {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('error').style.display = 'block';
+}
+
+// Render products
+function renderProducts() {
+  if (!appData || !currentCategory) return;
+  
+  const category = appData.categories[currentCategory];
+  const productsGrid = document.getElementById('productsGrid');
+  
+  // Update page title and description
+  document.getElementById('category-title').textContent = category.title;
+  document.getElementById('category-description').textContent = category.description;
+  document.getElementById('breadcrumb-current').textContent = category.title;
+  
+  // Update document title
+  document.title = `${category.title} — ZAVRIX Peak Sport`;
+  
+  productsGrid.innerHTML = Object.values(category.products).map(product => {
+    const imgSrc = product.cardImage || (product.images && product.images[0]) || 'https://via.placeholder.com/400x300?text=Product';
+    const tagHtml = product.tag ? `<div class="product-tag">${product.tag}</div>` : '';
+    
+    return `
+      <div class="product-card" data-product-id="${product.id}">
+        ${tagHtml}
+        <div class="product-image">
+          <img src="${imgSrc}" alt="${escapeHtml(product.title)}">
+        </div>
+        <div class="product-info">
+          <h3>${escapeHtml(product.title)}</h3>
+          <p>${escapeHtml(product.description)}</p>
+          <div class="product-features">
+            <ul class="feature-list">
+              ${product.features.slice(0, 3).map(feature => `<li>${escapeHtml(feature)}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="product-actions">
+            <span style="color: var(--accent); font-weight: 600; font-size: 0.9rem;">${product.sizes.length} Sizes Available</span>
+            <a href="product.html?category=${currentCategory}&product=${product.id}" class="view-product-btn">View Details</a>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  // Hide loading and show grid
+  document.getElementById('loading').style.display = 'none';
+  productsGrid.style.display = 'grid';
+}
+
+// Card animations
+function setupCardObservers(){
+  const cards = document.querySelectorAll('.product-card');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.12});
+  cards.forEach(c => io.observe(c));
+}
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));
+}
+
+// Theme management
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+}
+
+function initializeTheme() {
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+}
+
+// Cart functionality
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cartCountElement = document.getElementById('cartCount');
+  if (cartCountElement) {
+    cartCountElement.textContent = totalItems;
+  }
+}
+
+function viewCart() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if (cart.length === 0) {
+    alert('Your cart is empty!');
+    return;
+  }
+  
+  let message = 'Hi! Here are the items in my cart:\n\n';
+  cart.forEach((item, index) => {
+    message += `${index + 1}. ${item.title}\n   Size: ${item.size}\n   Color: ${item.color}\n   Quantity: ${item.quantity}\n\n`;
+  });
+  message += 'Please provide pricing and proceed with the order.';
+  
+  const whatsappUrl = `https://wa.me/923291430316?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+}
+
+// Initialize theme and app
+initializeTheme();
+updateCartCount();
+loadData();
+</script>
+</body>
+</html>

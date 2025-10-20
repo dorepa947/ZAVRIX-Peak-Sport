@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ZAVRIX Peak Sport — Premium Sportswear</title>
 <link rel="stylesheet" href="assets/styles.css">
+
 </head>
 <body>
 <div class="wrap">
@@ -19,17 +20,20 @@
     </div>
     
     <div class="brand">
-      <img src="logo.png" alt="ZAVRIX Peak Sport Logo" onerror="this.src='https://via.placeholder.com/120x120?text=Logo'">
+      <img src="/assets/logo.png" alt="ZAVRIX Peak Sport Logo" onerror="this.src='https://via.placeholder.com/120x120?text=Logo'">
       <div class="brand-text">
         <h1><span class="brand-main">ZAVRIX</span> <span class="brand-accent">Peak Sport</span></h1>
         <p>Premium quality sportswear — performance tested</p>
       </div>
     </div>
-    <nav>
-      <a href="#" data-page="home">Home</a>
-      <a href="#" data-page="categories">Categories</a>
+    <nav style="display: flex; flex-direction: row;" >
+      <a href="index.html">Home</a>
+      <a href="categories.html">Categories</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <div class="theme-toggle-slider"></div>
+      </div>
     </nav>
   </header>
 
@@ -39,7 +43,7 @@
       <h2>High-Performance Sportswear — Engineered for Champions</h2>
       <p style="margin-top:8px;color:var(--muted)">ZAVRIX Peak Sport combines technical fabrics, precise stitching & modern fit to deliver on-field performance and off-field style. Click any product to view detailed images and features.</p>
       <div style="margin-top:12px">
-        <a class="cta" href="#products">Explore Collection</a>
+        <a class="cta" href="categories.html">Explore Collection</a>
       </div>
     </div>
     <div class="hero-img-container">
@@ -49,7 +53,7 @@
 
   <!-- Breadcrumbs -->
   <nav class="breadcrumbs" id="breadcrumbs" style="display:none;">
-    <a href="#" data-page="home">Home</a>
+    <a href="index.html">Home</a>
     <span class="separator">/</span>
     <span id="breadcrumb-current">Current Page</span>
   </nav>
@@ -145,7 +149,6 @@
     </div>
   </div>
 </div>
-
 <script src="assets/app.js"></script>
 </body>
 </html>

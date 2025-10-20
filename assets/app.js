@@ -152,7 +152,7 @@ function renderCategories() {
   document.querySelectorAll('.category-card').forEach(card => {
     card.addEventListener('click', () => {
       const categoryId = card.dataset.categoryId;
-      navigateTo('category', categoryId);
+      window.location.href = `subcategory.html?category=${categoryId}`;
     });
   });
 
@@ -189,7 +189,7 @@ function renderCategoryProducts(categoryId) {
   document.querySelectorAll('.product-card').forEach(card => {
     card.addEventListener('click', () => {
       const productId = card.dataset.productId;
-      navigateTo('product', categoryId, productId);
+      window.location.href = `product.html?category=${categoryId}&product=${productId}`;
     });
   });
 
@@ -388,5 +388,48 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// Initialize app
+// Theme management
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+}
+
+function initializeTheme() {
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+}
+
+// Cart functionality
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cartCountElement = document.getElementById('cartCount');
+  if (cartCountElement) {
+    cartCountElement.textContent = totalItems;
+  }
+}
+
+function viewCart() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if (cart.length === 0) {
+    alert('Your cart is empty!');
+    return;
+  }
+  
+  let message = 'Hi! Here are the items in my cart:\n\n';
+  cart.forEach((item, index) => {
+    message += `${index + 1}. ${item.title}\n   Size: ${item.size}\n   Color: ${item.color}\n   Quantity: ${item.quantity}\n\n`;
+  });
+  message += 'Please provide pricing and proceed with the order.';
+  
+  const whatsappUrl = `https://wa.me/923291430316?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+}
+
+// Initialize theme and app
+initializeTheme();
+updateCartCount();
 loadData();

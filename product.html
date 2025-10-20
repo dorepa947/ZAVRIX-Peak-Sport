@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product Details — ZAVRIX Peak Sport</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+.product-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.product-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.product-images {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.main-image {
+  width: 100%;
+  height: 500px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(180deg,#072233,#0f3950);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.main-image img:hover {
+  transform: scale(1.05);
+}
+
+.thumbnail-images {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 8px 0;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.thumbnail:hover {
+  border-color: var(--accent);
+  transform: scale(1.1);
+}
+
+.thumbnail.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(140,227,0,0.3);
+}
+
+.product-info {
+  padding: 0 20px;
+}
+
+.product-title {
+  color: var(--white);
+  font-size: 2rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.product-description {
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.product-options {
+  margin: 30px 0;
+}
+
+.size-selector, .color-selector {
+  margin-bottom: 24px;
+}
+
+.option-label {
+  color: var(--white);
+  margin-bottom: 12px;
+  display: block;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.size-buttons, .color-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.size-btn {
+  padding: 12px 20px;
+  border: 2px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 600;
+  font-size: 1rem;
+  min-width: 50px;
+}
+
+.size-btn:hover {
+  border-color: var(--accent);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.size-btn.selected {
+  background: var(--accent);
+  color: #02110a;
+  border-color: var(--accent);
+}
+
+.color-btn {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.color-btn:hover {
+  border-color: var(--accent);
+  transform: scale(1.1);
+}
+
+.color-btn.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(140,227,0,0.3);
+}
+
+.product-features {
+  margin: 30px 0;
+}
+
+.features-title {
+  color: var(--white);
+  margin: 24px 0 16px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+}
+
+.features-list li {
+  color: var(--muted);
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.features-list li::before {
+  content: "✓";
+  color: var(--accent);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.product-actions {
+  margin-top: 32px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.add-to-cart, .buy-now {
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.add-to-cart {
+  background: linear-gradient(90deg, var(--accent), #70d600);
+  color: #02110a;
+  border: none;
+  flex: 1;
+  min-width: 180px;
+}
+
+.buy-now {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid var(--accent);
+  flex: 1;
+  min-width: 180px;
+}
+
+.add-to-cart:hover {
+  background: #70d600;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(140,227,0,0.3);
+}
+
+.buy-now:hover {
+  background: var(--accent);
+  color: #02110a;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(140,227,0,0.3);
+}
+
+.product-specs {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(12,30,40,0.03));
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 32px;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.specs-title {
+  color: var(--white);
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.spec-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.spec-label {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.spec-value {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.loading {
+  text-align: center;
+  color: var(--muted);
+  font-size: 1.2rem;
+  margin: 40px 0;
+}
+
+.error {
+  text-align: center;
+  color: var(--accent-2);
+  font-size: 1.1rem;
+  margin: 40px 0;
+  padding: 20px;
+  background: rgba(255,60,0,0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255,60,0,0.2);
+}
+
+@media (max-width: 768px) {
+  .product-detail {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .product-info {
+    padding: 0;
+  }
+  
+  .main-image {
+    height: 350px;
+  }
+  
+  .thumbnail {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .product-title {
+    font-size: 1.6rem;
+  }
+  
+  .product-actions {
+    flex-direction: column;
+  }
+  
+  .add-to-cart, .buy-now {
+    min-width: unset;
+  }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <img src="assets/logo.png" alt="ZAVRIX Peak Sport Logo" onerror="this.src='https://via.placeholder.com/120x120?text=Logo'">
+      <div class="brand-text">
+        <h1><span class="brand-main">ZAVRIX</span> <span class="brand-accent">Peak Sport</span></h1>
+        <p>Premium quality sportswear — performance tested</p>
+      </div>
+    </div>
+    <nav style="display: flex; flex-direction: row;" >
+      <a href="index.html">Home</a>
+      <a href="categories.html">Categories</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <div class="theme-toggle-slider"></div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs">
+    <a href="index.html">Home</a>
+    <span class="separator">/</span>
+    <a href="categories.html">Categories</a>
+    <span class="separator">/</span>
+    <span id="breadcrumb-category">Category</span>
+    <span class="separator">/</span>
+    <span id="breadcrumb-product">Product</span>
+  </nav>
+
+  <!-- Loading State -->
+  <div id="loading" class="loading">Loading product details...</div>
+
+  <!-- Error State -->
+  <div id="error" class="error" style="display: none;">Product not found. Please try again.</div>
+
+  <!-- Product Detail Container -->
+  <div class="product-detail-container" id="productContainer" style="display: none;">
+    <div class="product-detail">
+      <div class="product-images">
+        <div class="main-image" onclick="openModal()">
+          <img id="product-main-image" src="" alt="Product Image">
+        </div>
+        <div class="thumbnail-images" id="product-thumbnails"></div>
+      </div>
+      <div class="product-info">
+        <h1 class="product-title" id="product-title">Product Title</h1>
+        <p class="product-description" id="product-description">Product description</p>
+        
+        <div class="product-options">
+          <div class="size-selector">
+            <label class="option-label">Size:</label>
+            <div class="size-buttons" id="size-buttons"></div>
+          </div>
+          
+          <div class="color-selector">
+            <label class="option-label">Color:</label>
+            <div class="color-buttons" id="color-buttons"></div>
+          </div>
+        </div>
+
+        <div class="product-features">
+          <h3 class="features-title">Key Features:</h3>
+          <ul class="features-list" id="product-features-list"></ul>
+        </div>
+
+        <div class="product-actions">
+          <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+          <button class="buy-now" onclick="buyNow()">Buy Now</button>
+        </div>
+
+        <div class="product-specs">
+          <h3 class="specs-title">Product Specifications</h3>
+          <div class="specs-grid">
+            <div class="spec-item">
+              <span class="spec-label">Available Sizes:</span>
+              <span class="spec-value" id="spec-sizes">-</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Available Colors:</span>
+              <span class="spec-value" id="spec-colors">-</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Material:</span>
+              <span class="spec-value">Premium Quality</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Origin:</span>
+              <span class="spec-value">Made in Sialkot</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p style="font-weight:600;color:#fff"><span style="color:var(--accent)">ZAVRIX Peak Sport</span> — Manufactured in Sialkot</p>
+    <div>
+      <a href="https://wa.me/923291430316" class="social-link" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"> +92&nbsp;329&nbsp;1430316</a>
+      <a href="https://www.instagram.com/zavrix_sport?igsh=dnlrMW15andnZHEx" class="social-link" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"> @zavrix_sport</a>
+      <a href="https://www.facebook.com/share/18DNVYbYHb/" class="social-link" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"> Facebook</a>
+      <a href="mailto:zavrixsport@gmail.com" class="social-link" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email"> zavrixsport@gmail.com</a>
+    </div>
+    <p style="margin-top:12px;color:#999">© <span id="yr"></span> ZAVRIX Peak Sport — All rights reserved</p>
+  </footer>
+
+</div>
+
+<!-- Modal for image gallery -->
+<div id="galleryModal" class="modal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h4 id="modalTitle">Product Gallery</h4>
+      <button class="closebtn" id="closeModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="mslider" id="mslider"></div>
+      <div class="thumbs" id="thumbs"></div>
+    </div>
+    <div class="controls">
+      <button id="prevBtn">Prev</button>
+      <button id="nextBtn">Next</button>
+      <button id="autoBtn">Auto ▶</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Year
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// Global state
+let appData = null;
+let currentCategory = null;
+let currentProduct = null;
+let productData = null;
+
+// Modal state
+let currentIndex = 0;
+let autoTimer = null;
+let autoPlay = false;
+
+// Get parameters from URL
+function getURLParameters() {
+  const urlParams = new URLSearchParams(window.location.search);
+  return {
+    category: urlParams.get('category'),
+    product: urlParams.get('product')
+  };
+}
+
+// Load data and initialize app
+async function loadData() {
+  try {
+    const res = await fetch('assets/data/products.json', { cache: 'no-store' });
+    appData = await res.json();
+    
+    const params = getURLParameters();
+    currentCategory = params.category;
+    currentProduct = params.product;
+    
+    if (!currentCategory || !currentProduct || !appData.categories[currentCategory] || !appData.categories[currentCategory].products[currentProduct]) {
+      showError();
+      return;
+    }
+    
+    productData = appData.categories[currentCategory].products[currentProduct];
+    renderProduct();
+    setupModalHandlers();
+  } catch (e) {
+    console.error('Failed to load products.json', e);
+    showError();
+  }
+}
+
+// Show error state
+function showError() {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('error').style.display = 'block';
+}
+
+// Render product details
+function renderProduct() {
+  if (!productData) return;
+  
+  // Update page title
+  document.title = `${productData.title} — ZAVRIX Peak Sport`;
+  
+  // Update breadcrumbs
+  document.getElementById('breadcrumb-category').textContent = appData.categories[currentCategory].title;
+  document.getElementById('breadcrumb-product').textContent = productData.title;
+  
+  // Update product info
+  document.getElementById('product-title').textContent = productData.title;
+  document.getElementById('product-description').textContent = productData.description;
+  
+  // Update main image
+  const mainImage = document.getElementById('product-main-image');
+  mainImage.src = productData.images[0] || 'https://via.placeholder.com/600x600?text=Product+Image';
+  mainImage.alt = productData.title;
+  
+  // Update thumbnails
+  const thumbnails = document.getElementById('product-thumbnails');
+  thumbnails.innerHTML = productData.images.map((src, index) => `
+    <img src="${src}" alt="${productData.title} ${index + 1}" 
+         onclick="changeMainImage('${src}', ${index})" 
+         class="thumbnail ${index === 0 ? 'active' : ''}">
+  `).join('');
+  
+  // Update sizes
+  const sizeButtons = document.getElementById('size-buttons');
+  sizeButtons.innerHTML = productData.sizes.map(size => `
+    <button class="size-btn" onclick="selectSize('${size}')">${size}</button>
+  `).join('');
+  
+  // Update colors
+  const colorButtons = document.getElementById('color-buttons');
+  colorButtons.innerHTML = productData.colors.map(color => `
+    <button class="color-btn" style="background-color: ${getColorValue(color)}" 
+            onclick="selectColor('${color}')" title="${color}"></button>
+  `).join('');
+  
+  // Update features
+  const featuresList = document.getElementById('product-features-list');
+  featuresList.innerHTML = productData.features.map(feature => `
+    <li>${escapeHtml(feature)}</li>
+  `).join('');
+  
+  // Update specs
+  document.getElementById('spec-sizes').textContent = productData.sizes.join(', ');
+  document.getElementById('spec-colors').textContent = productData.colors.join(', ');
+  
+  // Show product container
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('productContainer').style.display = 'block';
+}
+
+// Product detail helpers
+function changeMainImage(src, index) {
+  document.getElementById('product-main-image').src = src;
+  document.querySelectorAll('.thumbnail').forEach(thumb => thumb.classList.remove('active'));
+  document.querySelectorAll('.thumbnail')[index].classList.add('active');
+}
+
+function selectSize(size) {
+  document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
+  event.target.classList.add('selected');
+}
+
+function selectColor(color) {
+  document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('selected'));
+  event.target.classList.add('selected');
+}
+
+function getColorValue(color) {
+  const colorMap = {
+    'White': '#ffffff',
+    'Black': '#000000',
+    'Navy': '#001f3f',
+    'Red': '#ff0000',
+    'Gray': '#808080',
+    'Green': '#008000',
+    'Khaki': '#f0e68c',
+    'Beige': '#f5f5dc',
+    'Light Blue': '#add8e6',
+    'Blue': '#0000ff',
+    'Maroon': '#800000',
+    'Olive': '#808000',
+    'Sky Blue': '#87ceeb',
+    'Bordeaux': '#722f37',
+    'Royal Blue': '#4169e1',
+    'Army Green': '#4b5320',
+    'Ivory': '#fffff0',
+    'Pink': '#ffc0cb',
+    'Champagne': '#f7e7ce',
+    'Red Plaid': '#cc0000',
+    'Green Plaid': '#006600',
+    'Blue Check': '#0000cc'
+  };
+  return colorMap[color] || '#cccccc';
+}
+
+// Modal system
+function setupModalHandlers() {
+  const modal = document.getElementById('galleryModal');
+  const mslider = document.getElementById('mslider');
+  const thumbs = document.getElementById('thumbs');
+  const modalTitle = document.getElementById('modalTitle');
+  const closeModal = document.getElementById('closeModal');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const autoBtn = document.getElementById('autoBtn');
+
+  // Modal controls
+  prevBtn.addEventListener('click', () => {
+    const toShow = document.querySelectorAll('.mslide');
+    if (!toShow.length) return;
+    gotoSlide((currentIndex - 1 + toShow.length) % toShow.length);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const toShow = document.querySelectorAll('.mslide');
+    if (!toShow.length) return;
+    gotoSlide((currentIndex + 1) % toShow.length);
+  });
+
+  autoBtn.addEventListener('click', () => {
+    autoPlay = !autoPlay;
+    autoBtn.textContent = autoPlay ? 'Stop ⏸' : 'Auto ▶';
+    if (autoPlay) {
+      autoTimer = setInterval(() => { nextBtn.click(); }, 2200);
+    } else {
+      clearInterval(autoTimer);
+    }
+  });
+
+  closeModal.addEventListener('click', closeModalHandler);
+
+  // Close modal on outside click or ESC
+  modal.addEventListener('click', (e) => { 
+    if (e.target === modal) closeModalHandler(); 
+  });
+  
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('open')) return;
+    if (e.key === 'Escape') closeModalHandler();
+    if (e.key === 'ArrowLeft') prevBtn.click();
+    if (e.key === 'ArrowRight') nextBtn.click();
+  });
+}
+
+function openModal() {
+  if (!productData || !productData.images) return;
+  
+  const modal = document.getElementById('galleryModal');
+  const mslider = document.getElementById('mslider');
+  const thumbs = document.getElementById('thumbs');
+  const modalTitle = document.getElementById('modalTitle');
+  
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  modalTitle.textContent = productData.title;
+
+  // Clear
+  mslider.innerHTML = '';
+  thumbs.innerHTML = '';
+
+  // Add slides and thumbs
+  productData.images.forEach((src, index) => {
+    const slide = document.createElement('div');
+    slide.className = `mslide ${index === 0 ? 'active' : ''}`;
+    slide.innerHTML = `<img src="${src}" alt="${productData.title} image ${index + 1}">`;
+    mslider.appendChild(slide);
+
+    const thumb = document.createElement('img');
+    thumb.src = src;
+    thumb.alt = `${productData.title} thumb ${index + 1}`;
+    thumb.className = `quick-in ${index === 0 ? 'sel' : ''}`;
+    thumb.onclick = () => gotoSlide(index);
+    thumbs.appendChild(thumb);
+  });
+
+  currentIndex = 0;
+  autoPlay = false;
+  document.getElementById('autoBtn').textContent = 'Auto ▶';
+  clearInterval(autoTimer);
+}
+
+function gotoSlide(i) {
+  const slides = document.querySelectorAll('.mslide');
+  const timgs = document.querySelectorAll('.thumbs img');
+  if (slides.length === 0) return;
+  slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+  timgs.forEach((t, idx) => t.classList.toggle('sel', idx === i));
+  currentIndex = i;
+}
+
+function closeModalHandler() {
+  const modal = document.getElementById('galleryModal');
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+  autoPlay = false;
+  clearInterval(autoTimer);
+  document.getElementById('autoBtn').textContent = 'Auto ▶';
+}
+
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));
+}
+
+// Theme management
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+}
+
+function initializeTheme() {
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+}
+
+// Cart functionality
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cartCountElement = document.getElementById('cartCount');
+  if (cartCountElement) {
+    cartCountElement.textContent = totalItems;
+  }
+}
+
+function viewCart() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if (cart.length === 0) {
+    alert('Your cart is empty!');
+    return;
+  }
+  
+  let message = 'Hi! Here are the items in my cart:\n\n';
+  cart.forEach((item, index) => {
+    message += `${index + 1}. ${item.title}\n   Size: ${item.size}\n   Color: ${item.color}\n   Quantity: ${item.quantity}\n\n`;
+  });
+  message += 'Please provide pricing and proceed with the order.';
+  
+  const whatsappUrl = `https://wa.me/923291430316?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+}
+
+// Cart functionality
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+function addToCart() {
+  const selectedSize = document.querySelector('.size-btn.selected')?.textContent || null;
+  const selectedColor = document.querySelector('.color-btn.selected')?.title || null;
+  
+  if (!selectedSize || !selectedColor) {
+    alert('Please select both size and color before adding to cart.');
+    return;
+  }
+  
+  const cartItem = {
+    id: `${productData.id}-${selectedSize}-${selectedColor}`,
+    productId: productData.id,
+    title: productData.title,
+    size: selectedSize,
+    color: selectedColor,
+    image: productData.images[0],
+    price: 'Contact for price',
+    quantity: 1
+  };
+  
+  const existingItem = cart.find(item => item.id === cartItem.id);
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push(cartItem);
+  }
+  
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartCount();
+  
+  // Show success message
+  const btn = document.querySelector('.add-to-cart');
+  const originalText = btn.textContent;
+  btn.textContent = 'Added to Cart!';
+  btn.style.background = '#059669';
+  
+  setTimeout(() => {
+    btn.textContent = originalText;
+    btn.style.background = '';
+  }, 2000);
+}
+
+function buyNow() {
+  const selectedSize = document.querySelector('.size-btn.selected')?.textContent || null;
+  const selectedColor = document.querySelector('.color-btn.selected')?.title || null;
+  
+  if (!selectedSize || !selectedColor) {
+    alert('Please select both size and color before proceeding.');
+    return;
+  }
+  
+  const message = `Hi! I want to BUY NOW:\n\nProduct: ${productData.title}\nSize: ${selectedSize}\nColor: ${selectedColor}\n\nPlease confirm availability and provide payment details.`;
+  
+  const whatsappUrl = `https://wa.me/923291430316?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+}
+
+// Initialize theme and app
+initializeTheme();
+updateCartCount();
+loadData();
+</script>
+</body>
+</html>
