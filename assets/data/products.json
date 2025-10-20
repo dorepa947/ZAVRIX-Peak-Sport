@@ -1,0 +1,157 @@
+{
+  "categories": {
+    "tops": {
+      "id": "tops",
+      "title": "TOPS",
+      "description": "Premium quality tops for every sport and occasion",
+      "cardImage": "assets/images/categories/tops.jpg",
+      "tag": "Popular",
+      "products": {
+        "tshirt-basic": {
+          "id": "tshirt-basic",
+          "title": "Basic T-Shirt",
+          "description": "Premium cotton blend — breathable, durable & tailored for movement.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["White", "Black", "Navy", "Red"],
+          "features": ["100% Cotton", "Machine Washable", "Pre-shrunk"],
+          "tag": "Best Seller",
+          "cardImage": "assets/images/tshirt/card.jpg",
+          "images": [
+            "assets/images/tshirt/1.jpg",
+            "assets/images/tshirt/2.jpg",
+            "assets/images/tshirt/3.jpg",
+            "assets/images/tshirt/4.jpg"
+          ]
+        },
+        "tshirt-premium": {
+          "id": "tshirt-premium",
+          "title": "Premium T-Shirt",
+          "description": "Advanced moisture-wicking fabric with enhanced durability.",
+          "sizes": ["S", "M", "L", "XL"],
+          "colors": ["White", "Black", "Gray"],
+          "features": ["Moisture Wicking", "UV Protection", "Quick Dry"],
+          "cardImage": "assets/images/tshirt/premium-card.jpg",
+          "images": [
+            "assets/images/tshirt/premium1.jpg",
+            "assets/images/tshirt/premium2.jpg",
+            "assets/images/tshirt/premium3.jpg"
+          ]
+        },
+        "polo-classic": {
+          "id": "polo-classic",
+          "title": "Classic Polo Shirt",
+          "description": "Sporty elegance with moisture-management fabric.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["White", "Black", "Navy", "Green"],
+          "features": ["Pique Fabric", "Button Collar", "Side Vents"],
+          "cardImage": "assets/images/polo/card.jpg",
+          "images": [
+            "assets/images/polo/1.jpg",
+            "assets/images/polo/2.jpg",
+            "assets/images/polo/3.jpg",
+            "assets/images/polo/4.jpg"
+          ]
+        }
+      }
+    },
+    "bottoms": {
+      "id": "bottoms",
+      "title": "BOTTOMS",
+      "description": "Comfortable and durable bottoms for active lifestyle",
+      "cardImage": "assets/images/categories/bottoms.jpg",
+      "products": {
+        "shorts-training": {
+          "id": "shorts-training",
+          "title": "Training Shorts",
+          "description": "Lightweight & quick-dry for high-intensity sessions.",
+          "sizes": ["S", "M", "L", "XL"],
+          "colors": ["Black", "Navy", "Gray", "Red"],
+          "features": ["Quick Dry", "Elastic Waist", "Side Pockets"],
+          "cardImage": "assets/images/short/card.jpg",
+          "images": [
+            "assets/images/short/1.jpg",
+            "assets/images/short/2.jpg",
+            "assets/images/short/3.jpg",
+            "assets/images/short/4.jpg"
+          ]
+        },
+        "shorts-casual": {
+          "id": "shorts-casual",
+          "title": "Casual Shorts",
+          "description": "Perfect for everyday wear with comfort and style.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Khaki", "Black", "Navy", "Beige"],
+          "features": ["Cotton Blend", "Drawstring Waist", "Multiple Pockets"],
+          "cardImage": "assets/images/short/casual-card.jpg",
+          "images": [
+            "assets/images/short/casual1.jpg",
+            "assets/images/short/casual2.jpg"
+          ]
+        }
+      }
+    },
+    "outerwear": {
+      "id": "outerwear",
+      "title": "OUTERWEAR",
+      "description": "Stay warm and stylish with our premium outerwear collection",
+      "cardImage": "assets/images/categories/outerwear.jpg",
+      "tag": "New",
+      "products": {
+        "hoodie-classic": {
+          "id": "hoodie-classic",
+          "title": "Classic Hoodie",
+          "description": "Soft thermal fleece — clean finish & modern silhouette.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Black", "Gray", "Navy", "White"],
+          "features": ["Fleece Lined", "Kangaroo Pocket", "Drawstring Hood"],
+          "float": true,
+          "cardImage": "assets/images/hoodie/card.jpg",
+          "images": [
+            "assets/images/hoodie/1.jpg",
+            "assets/images/hoodie/2.jpg",
+            "assets/images/hoodie/3.jpg",
+            "assets/images/hoodie/4.jpg"
+          ]
+        },
+        "tracksuit-set": {
+          "id": "tracksuit-set",
+          "title": "Tracksuit Set",
+          "description": "Coordinated sets — engineered for warm-up and daily wear.",
+          "sizes": ["S", "M", "L", "XL"],
+          "colors": ["Black", "Navy", "Gray", "Red"],
+          "features": ["Matching Set", "Elastic Waist", "Side Stripes"],
+          "cardImage": "assets/images/tracksuit/card.jpg",
+          "images": [
+            "assets/images/tracksuit/1.jpg",
+            "assets/images/tracksuit/2.jpg",
+            "assets/images/tracksuit/3.jpg",
+            "assets/images/tracksuit/4.jpg"
+          ]
+        }
+      }
+    },
+    "sleepwear": {
+      "id": "sleepwear",
+      "title": "SLEEPWEAR",
+      "description": "Comfortable sleepwear for rest and recovery",
+      "cardImage": "assets/images/categories/sleepwear.jpg",
+      "products": {
+        "pajama-cotton": {
+          "id": "pajama-cotton",
+          "title": "Cotton Pajama Set",
+          "description": "Relaxed fit for recovery — soft hand-feel & breathable fabric.",
+          "sizes": ["S", "M", "L", "XL"],
+          "colors": ["Light Blue", "White", "Gray", "Navy"],
+          "features": ["100% Cotton", "Loose Fit", "Elastic Waist"],
+          "cardImage": "assets/images/pajama/card.jpg",
+          "images": [
+            "assets/images/pajama/1.jpg",
+            "assets/images/pajama/2.jpg",
+            "assets/images/pajama/3.jpg",
+            "assets/images/pajama/4.jpg"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZAVRIX Peak Sport — Premium Sportswear</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header with enhanced animation -->
+  <header>
+    <div class="header-animation">
+      <div class="pulse-dot"></div>
+      <div class="pulse-dot"></div>
+      <div class="pulse-dot"></div>
+      <div class="pulse-dot"></div>
+    </div>
+    
+    <div class="brand">
+      <img src="logo.png" alt="ZAVRIX Peak Sport Logo" onerror="this.src='https://via.placeholder.com/120x120?text=Logo'">
+      <div class="brand-text">
+        <h1><span class="brand-main">ZAVRIX</span> <span class="brand-accent">Peak Sport</span></h1>
+        <p>Premium quality sportswear — performance tested</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#" data-page="home">Home</a>
+      <a href="#" data-page="categories">Categories</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" aria-hidden="false">
+    <div style="flex:1">
+      <h2>High-Performance Sportswear — Engineered for Champions</h2>
+      <p style="margin-top:8px;color:var(--muted)">ZAVRIX Peak Sport combines technical fabrics, precise stitching & modern fit to deliver on-field performance and off-field style. Click any product to view detailed images and features.</p>
+      <div style="margin-top:12px">
+        <a class="cta" href="#products">Explore Collection</a>
+      </div>
+    </div>
+    <div class="hero-img-container">
+      <img src="https://via.placeholder.com/240x160?text=Featured+Product" alt="Featured Product" style="width:100%;display:block">
+    </div>
+  </section>
+
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs" id="breadcrumbs" style="display:none;">
+    <a href="#" data-page="home">Home</a>
+    <span class="separator">/</span>
+    <span id="breadcrumb-current">Current Page</span>
+  </nav>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <!-- Home Page -->
+    <div id="home-page" class="page active">
+      <section id="products">
+        <h2 style="color:var(--white);margin:18px 0 12px;transform:translateY(20px);opacity:0;animation:textSlideUp 0.8s 0.7s ease-out forwards">Our Categories</h2>
+        <div class="grid" id="categoriesGrid"></div>
+      </section>
+    </div>
+
+    <!-- Category Page -->
+    <div id="category-page" class="page">
+      <section id="category-content">
+        <h2 id="category-title" style="color:var(--white);margin:18px 0 12px;">Category</h2>
+        <div class="grid" id="categoryProductsGrid"></div>
+      </section>
+    </div>
+
+    <!-- Product Page -->
+    <div id="product-page" class="page">
+      <section id="product-content">
+        <div class="product-detail">
+          <div class="product-images">
+            <div class="main-image">
+              <img id="product-main-image" src="" alt="Product Image">
+            </div>
+            <div class="thumbnail-images" id="product-thumbnails"></div>
+          </div>
+          <div class="product-info">
+            <h2 id="product-title" style="color:var(--white);margin:0 0 8px;">Product Title</h2>
+            <p id="product-description" style="color:var(--muted);margin:0 0 16px;">Product description</p>
+            
+            <div class="product-options">
+              <div class="size-selector">
+                <label style="color:var(--white);margin-bottom:8px;display:block;">Size:</label>
+                <div class="size-buttons" id="size-buttons"></div>
+              </div>
+              
+              <div class="color-selector">
+                <label style="color:var(--white);margin-bottom:8px;display:block;">Color:</label>
+                <div class="color-buttons" id="color-buttons"></div>
+              </div>
+            </div>
+
+            <div class="product-features">
+              <h3 style="color:var(--white);margin:20px 0 12px;">Features:</h3>
+              <ul id="product-features-list"></ul>
+            </div>
+
+            <div class="product-actions">
+              <button class="add-to-cart" style="background:var(--accent);color:#02110a;border:none;padding:12px 24px;border-radius:8px;font-weight:700;cursor:pointer;margin-right:12px;">Add to Cart</button>
+              <button class="buy-now" style="background:transparent;color:var(--white);border:2px solid var(--accent);padding:10px 24px;border-radius:8px;font-weight:700;cursor:pointer;">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p style="font-weight:600;color:#fff"><span style="color:var(--accent)">ZAVRIX Peak Sport</span> — Manufactured in Sialkot</p>
+    <div>
+      <a href="https://wa.me/923291430316" class="social-link" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"> +92&nbsp;329&nbsp;1430316</a>
+      <a href="https://www.instagram.com/zavrix_sport?igsh=dnlrMW15andnZHEx" class="social-link" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"> @zavrix_sport</a>
+      <a href="https://www.facebook.com/share/18DNVYbYHb/" class="social-link" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"> Facebook</a>
+      <a href="mailto:zavrixsport@gmail.com" class="social-link" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email"> zavrixsport@gmail.com</a>
+    </div>
+    <p style="margin-top:12px;color:#999">© <span id="yr"></span> ZAVRIX Peak Sport — All rights reserved</p>
+  </footer>
+
+</div>
+
+<!-- Modal -->
+<div id="galleryModal" class="modal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h4 id="modalTitle">Product</h4>
+      <button class="closebtn" id="closeModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="mslider" id="mslider"></div>
+      <div class="thumbs" id="thumbs"></div>
+    </div>
+    <div class="controls">
+      <button id="prevBtn">Prev</button>
+      <button id="nextBtn">Next</button>
+      <button id="autoBtn">Auto ▶</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
