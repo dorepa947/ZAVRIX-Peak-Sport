@@ -237,7 +237,7 @@ nav a:hover::after{width:100%}
 
 /* Grid + advanced card animations */
 .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; margin-top:20px; }
-.card{ position:relative; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03)); border-radius:12px; padding:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); transform:translateY(50px) rotateX(10deg); opacity:0; transition:all 0.5s cubic-bezier(0.23, 1, 0.32, 1); transform-style:preserve-3d; perspective:1000px; }
+.card{ position:relative; cursor: pointer;  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03)); border-radius:12px; padding:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); transform:translateY(50px) rotateX(10deg); opacity:0; transition:all 0.5s cubic-bezier(0.23, 1, 0.32, 1); transform-style:preserve-3d; perspective:1000px; }
 .card.visible{ transform:translateY(0) rotateX(0); opacity:1; }
 .card:hover{ transform:translateY(-12px) rotateX(0) scale(1.03); box-shadow:0 25px 60px rgba(2,8,12,0.8); border-color:rgba(140,227,0,0.2); }
 .card::before{ content:""; position:absolute; inset:0; background:linear-gradient(45deg, transparent, rgba(140,227,0,0.03), transparent); opacity:0; transition:opacity 0.4s; }

@@ -1,154 +1,464 @@
 {
   "categories": {
-    "tops": {
-      "id": "tops",
-      "title": "TOPS",
-      "description": "Premium quality tops for every sport and occasion",
-      "cardImage": "assets/images/categories/tops.jpg",
-      "tag": "Popular",
+    "tshirts": {
+      "id": "tshirts",
+      "title": "T-SHIRT",
+      "description": "International standard T-shirt categories – as used by Alibaba, Amazon, Nike, Zara, etc. For YAHTAN IMPEX world-class product catalog.",
+      "cardImage": "assets/images/categories/tshirts.jpg",
+      "tag": "Casual Wear",
       "products": {
-        "tshirt-basic": {
-          "id": "tshirt-basic",
-          "title": "Basic T-Shirt",
-          "description": "Premium cotton blend — breathable, durable & tailored for movement.",
+        "crew-neck-tshirt": {
+          "id": "crew-neck-tshirt",
+          "title": "Crew Neck T-Shirt",
+          "description": "Classic round neck, the most common T-shirt style found globally. Suitable for everyday casual wear.",
           "sizes": ["S", "M", "L", "XL", "XXL"],
-          "colors": ["White", "Black", "Navy", "Red"],
-          "features": ["100% Cotton", "Machine Washable", "Pre-shrunk"],
-          "tag": "Best Seller",
-          "cardImage": "assets/images/tshirt/card.jpg",
+          "colors": ["White", "Black", "Navy", "Gray", "Red", "Blue"],
+          "features": [
+            "Premium Cotton or Cotton Blends",
+            "Soft Touch Feel",
+            "Double-Stitched Hems",
+            "Machine Washable"
+          ],
+          "cardImage": "assets/images/tshirt/crewneck-card.jpg",
           "images": [
-            "assets/images/tshirt/1.jpg",
-            "assets/images/tshirt/2.jpg",
-            "assets/images/tshirt/3.jpg",
-            "assets/images/tshirt/4.jpg"
+            "assets/images/tshirt/crewneck1.jpg",
+            "assets/images/tshirt/crewneck2.jpg"
           ]
         },
-        "tshirt-premium": {
-          "id": "tshirt-premium",
-          "title": "Premium T-Shirt",
-          "description": "Advanced moisture-wicking fabric with enhanced durability.",
-          "sizes": ["S", "M", "L", "XL"],
-          "colors": ["White", "Black", "Gray"],
-          "features": ["Moisture Wicking", "UV Protection", "Quick Dry"],
-          "cardImage": "assets/images/tshirt/premium-card.jpg",
+        "vneck-tshirt": {
+          "id": "vneck-tshirt",
+          "title": "V-Neck T-Shirt",
+          "description": "V-shaped neckline for a stylish look, popular for casual outings and semi-formal events.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["White", "Black", "Navy", "Gray", "Red"],
+          "features": [
+            "Modern Fitted Silhouette",
+            "Breathable Fabric",
+            "Tagless Comfort",
+            "Machine Wash Safe"
+          ],
+          "cardImage": "assets/images/tshirt/vneck-card.jpg",
           "images": [
-            "assets/images/tshirt/premium1.jpg",
-            "assets/images/tshirt/premium2.jpg",
-            "assets/images/tshirt/premium3.jpg"
+            "assets/images/tshirt/vneck1.jpg",
+            "assets/images/tshirt/vneck2.jpg"
           ]
         },
-        "polo-classic": {
-          "id": "polo-classic",
-          "title": "Classic Polo Shirt",
-          "description": "Sporty elegance with moisture-management fabric.",
+        "oversized-tshirt": {
+          "id": "oversized-tshirt",
+          "title": "Oversized/Relax Fit T-Shirt",
+          "description": "Trendy streetwear look with a relaxed, loose fit. Favored in global youth and urban styles.",
           "sizes": ["S", "M", "L", "XL", "XXL"],
-          "colors": ["White", "Black", "Navy", "Green"],
-          "features": ["Pique Fabric", "Button Collar", "Side Vents"],
-          "cardImage": "assets/images/polo/card.jpg",
+          "colors": ["White", "Black", "Beige", "Gray"],
+          "features": [
+            "Roomy & Relaxed Silhouette",
+            "Soft Jersey Cotton",
+            "Drop Shoulder Design",
+            "Streetwear Inspired"
+          ],
+          "cardImage": "assets/images/tshirt/oversized-card.jpg",
           "images": [
-            "assets/images/polo/1.jpg",
-            "assets/images/polo/2.jpg",
-            "assets/images/polo/3.jpg",
-            "assets/images/polo/4.jpg"
+            "assets/images/tshirt/oversized1.jpg",
+            "assets/images/tshirt/oversized2.jpg"
+          ]
+        },
+        "athletic-tshirt": {
+          "id": "athletic-tshirt",
+          "title": "Athletic/Performance T-Shirt",
+          "description": "Sports or gym wear made from quick-dry, moisture-wicking fabric for peak performance.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Black", "Navy", "Gray", "Red", "Blue"],
+          "features": [
+            "Moisture-Wicking Technology",
+            "Stretchable Fabric",
+            "Breathable Mesh Panels",
+            "Anti-Odor Treatment"
+          ],
+          "cardImage": "assets/images/tshirt/athletic-card.jpg",
+          "images": [
+            "assets/images/tshirt/athletic1.jpg",
+            "assets/images/tshirt/athletic2.jpg"
           ]
         }
       }
     },
-    "bottoms": {
-      "id": "bottoms",
-      "title": "BOTTOMS",
-      "description": "Comfortable and durable bottoms for active lifestyle",
-      "cardImage": "assets/images/categories/bottoms.jpg",
+    "shorts": {
+      "id": "shorts",
+      "title": "SHORTS",
+      "description": "Global-standard shorts categories for summer, sports, and fashion — for eCommerce & export.",
+      "cardImage": "assets/images/categories/shorts.jpg",
+      "tag": "Hot Picks",
       "products": {
-        "shorts-training": {
-          "id": "shorts-training",
-          "title": "Training Shorts",
-          "description": "Lightweight & quick-dry for high-intensity sessions.",
-          "sizes": ["S", "M", "L", "XL"],
-          "colors": ["Black", "Navy", "Gray", "Red"],
-          "features": ["Quick Dry", "Elastic Waist", "Side Pockets"],
-          "cardImage": "assets/images/short/card.jpg",
+        "casual-cotton-shorts": {
+          "id": "casual-cotton-shorts",
+          "title": "Casual Cotton Shorts",
+          "description": "Everyday cotton shorts ideal for relaxed summer days, comfort and breathability.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Beige", "Black", "Navy", "Gray", "Olive"],
+          "features": [
+            "100% Cotton or Cotton Blend",
+            "Elastic or Drawstring Waist",
+            "Side & Back Pockets",
+            "Relaxed/Slim Fit"
+          ],
+          "cardImage": "assets/images/shorts/casual-cotton-card.jpg",
           "images": [
-            "assets/images/short/1.jpg",
-            "assets/images/short/2.jpg",
-            "assets/images/short/3.jpg",
-            "assets/images/short/4.jpg"
+            "assets/images/shorts/casual-cotton1.jpg"
           ]
         },
-        "shorts-casual": {
-          "id": "shorts-casual",
-          "title": "Casual Shorts",
-          "description": "Perfect for everyday wear with comfort and style.",
+        "athletic-running-shorts": {
+          "id": "athletic-running-shorts",
+          "title": "Athletic/Running Shorts",
+          "description": "Lightweight and stretchable shorts for sports, gym, and active use.",
           "sizes": ["S", "M", "L", "XL", "XXL"],
-          "colors": ["Khaki", "Black", "Navy", "Beige"],
-          "features": ["Cotton Blend", "Drawstring Waist", "Multiple Pockets"],
-          "cardImage": "assets/images/short/casual-card.jpg",
+          "colors": ["Black", "Gray", "Navy", "Blue", "Red"],
+          "features": [
+            "Sweat-Wicking Fabric",
+            "Flexible & Quick-Dry",
+            "Elastic Waistband",
+            "Mesh Lining"
+          ],
+          "cardImage": "assets/images/shorts/athletic-card.jpg",
           "images": [
-            "assets/images/short/casual1.jpg",
-            "assets/images/short/casual2.jpg"
+            "assets/images/shorts/athletic1.jpg"
+          ]
+        },
+        "cargo-shorts": {
+          "id": "cargo-shorts",
+          "title": "Cargo Shorts",
+          "description": "Multi-pocketed shorts designed for outdoor, utility, and travel wear.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Khaki", "Army Green", "Black", "Beige"],
+          "features": [
+            "Multiple Cargo Pockets",
+            "Durable Stitching",
+            "Heavyweight Cotton",
+            "Adjustable Waist"
+          ],
+          "cardImage": "assets/images/shorts/cargo-card.jpg",
+          "images": [
+            "assets/images/shorts/cargo1.jpg"
+          ]
+        },
+        "denim-shorts": {
+          "id": "denim-shorts",
+          "title": "Denim/Jean Shorts",
+          "description": "Fashion denim shorts, suitable for men & women for a casual stylish look.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Blue", "Light Blue", "Black", "White"],
+          "features": [
+            "Stretch or Rigid Denim",
+            "Raw or Hemmed Edges",
+            "Classic Zipper & Button",
+            "Trendy Cuts"
+          ],
+          "cardImage": "assets/images/shorts/denim-card.jpg",
+          "images": [
+            "assets/images/shorts/denim1.jpg"
           ]
         }
       }
     },
-    "outerwear": {
-      "id": "outerwear",
-      "title": "OUTERWEAR",
-      "description": "Stay warm and stylish with our premium outerwear collection",
-      "cardImage": "assets/images/categories/outerwear.jpg",
-      "tag": "New",
+    "polo-shirts": {
+      "id": "polo-shirts",
+      "title": "POLO SHIRT",
+      "description": "International polo shirt types for casual, formal, and sports. Used in fashion & export sector.",
+      "cardImage": "assets/images/categories/polo.jpg",
       "products": {
-        "hoodie-classic": {
-          "id": "hoodie-classic",
-          "title": "Classic Hoodie",
-          "description": "Soft thermal fleece — clean finish & modern silhouette.",
+        "classic-cotton-polo": {
+          "id": "classic-cotton-polo",
+          "title": "Classic Cotton Polo",
+          "description": "Everyday casual and semi-formal polo shirt, timeless design.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["White", "Navy", "Black", "Gray", "Green", "Red"],
+          "features": [
+            "Premium Cotton Pique",
+            "Ribbed Collar & Cuffs",
+            "Short Sleeve",
+            "Button Placket"
+          ],
+          "cardImage": "assets/images/polo/classic-cotton-card.jpg",
+          "images": [
+            "assets/images/polo/classic-cotton1.jpg"
+          ]
+        },
+        "performance-polo": {
+          "id": "performance-polo",
+          "title": "Performance Polo",
+          "description": "Sports or golf polo with moisture-wicking, breathable stretch fabric.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Sky Blue", "Gray", "Navy", "Green"],
+          "features": [
+            "Moisture-Wicking Material",
+            "Modern Athletic Fit",
+            "Flexible Fabric",
+            "Quick Dry"
+          ],
+          "cardImage": "assets/images/polo/performance-card.jpg",
+          "images": [
+            "assets/images/polo/performance1.jpg"
+          ]
+        },
+        "slim-fit-polo": {
+          "id": "slim-fit-polo",
+          "title": "Slim Fit Polo",
+          "description": "Fashion-forward, tailored modern fit polo for a sharp look.",
+          "sizes": ["S", "M", "L", "XL"],
+          "colors": ["White", "Black", "Blue", "Bordeaux"],
+          "features": [
+            "Tapered Fit",
+            "Ribbed Collar & Short Sleeve",
+            "Flexible Cotton/Poly Blend",
+            "Lightweight"
+          ],
+          "cardImage": "assets/images/polo/slimfit-card.jpg",
+          "images": [
+            "assets/images/polo/slimfit1.jpg"
+          ]
+        },
+        "long-sleeve-polo": {
+          "id": "long-sleeve-polo",
+          "title": "Long Sleeve Polo",
+          "description": "For cooler weather and semi-formal or relaxed business attire.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Navy", "Black", "Gray", "White"],
+          "features": [
+            "Full-Length Sleeves",
+            "Ribbed Cuff",
+            "Soft Touch Jersey or Pique",
+            "Button Placket"
+          ],
+          "cardImage": "assets/images/polo/longsleeve-card.jpg",
+          "images": [
+            "assets/images/polo/longsleeve1.jpg"
+          ]
+        }
+      }
+    },
+    "hoodies": {
+      "id": "hoodies",
+      "title": "HOODIE",
+      "description": "World-class hoodie selection in accordance with international eCommerce and export standards.",
+      "cardImage": "assets/images/categories/hoodies.jpg",
+      "tag": "Seasonal",
+      "products": {
+        "pullover-hoodie": {
+          "id": "pullover-hoodie",
+          "title": "Pullover Hoodie",
+          "description": "Classic hoodie without zipper, easy and comfortable for all seasons.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Black", "Navy", "Gray", "White", "Maroon"],
+          "features": [
+            "Brushed Fleece or Cotton",
+            "Kangaroo Pocket",
+            "Hood with Drawcord",
+            "Ribbed Cuffs & Hem"
+          ],
+          "cardImage": "assets/images/hoodie/pullover-card.jpg",
+          "images": [
+            "assets/images/hoodie/pullover1.jpg"
+          ]
+        },
+        "zipup-hoodie": {
+          "id": "zipup-hoodie",
+          "title": "Zip-Up Hoodie",
+          "description": "Hoodie with front zipper, flexible layering for urban and active wear.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Black", "Royal Blue", "Gray", "White"],
+          "features": [
+            "Full-Zip Closure",
+            "Two Side Pockets",
+            "Adjustable Hood",
+            "Soft Touch Fabric"
+          ],
+          "cardImage": "assets/images/hoodie/zipup-card.jpg",
+          "images": [
+            "assets/images/hoodie/zipup1.jpg"
+          ]
+        },
+        "oversized-hoodie": {
+          "id": "oversized-hoodie",
+          "title": "Oversized Hoodie",
+          "description": "Streetwear-inspired, loose fit trendy hoodie for modern style.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Beige", "Gray", "Black", "White"],
+          "features": [
+            "Baggy Fit",
+            "Drop Shoulder",
+            "Deep Hood",
+            "Ultra Soft Fleece"
+          ],
+          "cardImage": "assets/images/hoodie/oversized-card.jpg",
+          "images": [
+            "assets/images/hoodie/oversized1.jpg"
+          ]
+        },
+        "tech-hoodie": {
+          "id": "tech-hoodie",
+          "title": "Tech/Performance Hoodie",
+          "description": "Sports version with high-stretch, moisture-wicking fabric, for training or travel.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Black", "Blue", "Gray", "Green"],
+          "features": [
+            "Performance Stretch Fabric",
+            "Lightweight",
+            "Zip Pockets",
+            "Breathable Design"
+          ],
+          "cardImage": "assets/images/hoodie/tech-card.jpg",
+          "images": [
+            "assets/images/hoodie/tech1.jpg"
+          ]
+        }
+      }
+    },
+    "tracksuits": {
+      "id": "tracksuits",
+      "title": "TRACKSUIT",
+      "description": "International tracksuit categories for athletes, fashion, and export. All YAHTAN IMPEX standards.",
+      "cardImage": "assets/images/categories/tracksuit.jpg",
+      "products": {
+        "classic-tracksuit": {
+          "id": "classic-tracksuit",
+          "title": "Classic Tracksuit",
+          "description": "Matching jacket and pants set. Used for casual, gym, and travel.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Black", "Navy", "Gray", "Olive"],
+          "features": [
+            "Full Zip Jacket & Pants",
+            "Elastic Waist & Cuffs",
+            "Poly-Cotton or Poly",
+            "Side Pockets"
+          ],
+          "cardImage": "assets/images/tracksuit/classic-card.jpg",
+          "images": [
+            "assets/images/tracksuit/classic1.jpg"
+          ]
+        },
+        "slimfit-tracksuit": {
+          "id": "slimfit-tracksuit",
+          "title": "Slim Fit Tracksuit",
+          "description": "Modern athletic cut tracksuit for a stylish, sharp athletic look.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Black", "Gray", "Blue", "Maroon"],
+          "features": [
+            "Tapered Legs & Arms",
+            "Stretch Fabric",
+            "Snug Fit",
+            "Minimal Branding"
+          ],
+          "cardImage": "assets/images/tracksuit/slimfit-card.jpg",
+          "images": [
+            "assets/images/tracksuit/slimfit1.jpg"
+          ]
+        },
+        "training-tracksuit": {
+          "id": "training-tracksuit",
+          "title": "Training Tracksuit",
+          "description": "Breathable, lightweight set for practice, training, and sports activities.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Black", "Royal Blue", "Gray", "Red"],
+          "features": [
+            "Ventilated Panels",
+            "Moisture-Wicking Material",
+            "Quick-Dry",
+            "Flexible Fit"
+          ],
+          "cardImage": "assets/images/tracksuit/training-card.jpg",
+          "images": [
+            "assets/images/tracksuit/training1.jpg"
+          ]
+        },
+        "streetwear-tracksuit": {
+          "id": "streetwear-tracksuit",
+          "title": "Streetwear Tracksuit",
+          "description": "Fashion-forward tracksuit for casual, urban, or export fashion markets.",
           "sizes": ["S", "M", "L", "XL", "XXL"],
           "colors": ["Black", "Gray", "Navy", "White"],
-          "features": ["Fleece Lined", "Kangaroo Pocket", "Drawstring Hood"],
-          "float": true,
-          "cardImage": "assets/images/hoodie/card.jpg",
+          "features": [
+            "Trendy Patterns or Graphics",
+            "Loose to Tapered Fits",
+            "Premium Poly/Cotton",
+            "Zipper & Snap Features"
+          ],
+          "cardImage": "assets/images/tracksuit/streetwear-card.jpg",
           "images": [
-            "assets/images/hoodie/1.jpg",
-            "assets/images/hoodie/2.jpg",
-            "assets/images/hoodie/3.jpg",
-            "assets/images/hoodie/4.jpg"
-          ]
-        },
-        "tracksuit-set": {
-          "id": "tracksuit-set",
-          "title": "Tracksuit Set",
-          "description": "Coordinated sets — engineered for warm-up and daily wear.",
-          "sizes": ["S", "M", "L", "XL"],
-          "colors": ["Black", "Navy", "Gray", "Red"],
-          "features": ["Matching Set", "Elastic Waist", "Side Stripes"],
-          "cardImage": "assets/images/tracksuit/card.jpg",
-          "images": [
-            "assets/images/tracksuit/1.jpg",
-            "assets/images/tracksuit/2.jpg",
-            "assets/images/tracksuit/3.jpg",
-            "assets/images/tracksuit/4.jpg"
+            "assets/images/tracksuit/streetwear1.jpg"
           ]
         }
       }
     },
-    "sleepwear": {
-      "id": "sleepwear",
-      "title": "SLEEPWEAR",
-      "description": "Comfortable sleepwear for rest and recovery",
-      "cardImage": "assets/images/categories/sleepwear.jpg",
+    "pajamas": {
+      "id": "pajamas",
+      "title": "PAJAMA",
+      "description": "International standard pajama varieties for global buyers, eCommerce, and boutique brands.",
+      "cardImage": "assets/images/categories/pajama.jpg",
       "products": {
-        "pajama-cotton": {
-          "id": "pajama-cotton",
+        "cotton-pajama-set": {
+          "id": "cotton-pajama-set",
           "title": "Cotton Pajama Set",
-          "description": "Relaxed fit for recovery — soft hand-feel & breathable fabric.",
-          "sizes": ["S", "M", "L", "XL"],
-          "colors": ["Light Blue", "White", "Gray", "Navy"],
-          "features": ["100% Cotton", "Loose Fit", "Elastic Waist"],
-          "cardImage": "assets/images/pajama/card.jpg",
+          "description": "Soft and breathable premium quality cotton pajama for ultimate comfort all year.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Light Blue", "White", "Navy", "Gray", "Pink"],
+          "features": [
+            "100% Cotton",
+            "Relaxed Fit",
+            "Soft Waistband",
+            "Machine Washable"
+          ],
+          "cardImage": "assets/images/pajama/cotton-card.jpg",
           "images": [
-            "assets/images/pajama/1.jpg",
-            "assets/images/pajama/2.jpg",
-            "assets/images/pajama/3.jpg",
-            "assets/images/pajama/4.jpg"
+            "assets/images/pajama/cotton1.jpg"
+          ]
+        },
+        "silk-pajama-set": {
+          "id": "silk-pajama-set",
+          "title": "Silk Pajama Set",
+          "description": "Luxury pajama made of pure silk – smooth, premium sleepwear for export and boutique.",
+          "sizes": ["S", "M", "L", "XL"],
+          "colors": ["Ivory", "Pink", "Champagne", "Navy"],
+          "features": [
+            "100% Silk",
+            "Breathable & Lightweight",
+            "Shimmer Finish",
+            "Gentle on Skin"
+          ],
+          "cardImage": "assets/images/pajama/silk-card.jpg",
+          "images": [
+            "assets/images/pajama/silk1.jpg"
+          ]
+        },
+        "flannel-pajama-set": {
+          "id": "flannel-pajama-set",
+          "title": "Flannel Pajama Set",
+          "description": "Warm, soft brushed flannel pajama set – ideal for chilly winter nights.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Red Plaid", "Green Plaid", "Blue Check"],
+          "features": [
+            "Heavyweight Brushed Cotton",
+            "Cozy Fit",
+            "Elastic Waist",
+            "Thermal Comfort"
+          ],
+          "cardImage": "assets/images/pajama/flannel-card.jpg",
+          "images": [
+            "assets/images/pajama/flannel1.jpg"
+          ]
+        },
+        "lounge-pajama-set": {
+          "id": "lounge-pajama-set",
+          "title": "Lounge Pajama Set",
+          "description": "Comfortable pajama for relaxing at home, modern style for day and night.",
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "colors": ["Gray", "Black", "Beige", "Navy"],
+          "features": [
+            "Stretch Cotton or Modal",
+            "Relaxed Modern Fit",
+            "Wide Waistband",
+            "Fashionable Lounge Look"
+          ],
+          "cardImage": "assets/images/pajama/lounge-card.jpg",
+          "images": [
+            "assets/images/pajama/lounge1.jpg"
           ]
         }
       }
