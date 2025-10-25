@@ -3,8 +3,8 @@
     "tshirts": {
       "id": "tshirts",
       "title": "T-SHIRT",
-      "description": "International standard T-shirt categories – as used by Alibaba, Amazon, Nike, Zara, etc. For YAHTAN IMPEX world-class product catalog.",
-      "cardImage": "assets/images/categories/tshirts.jpg",
+      "description": "International standard T-shirt categories – as used by Alibaba, Amazon, Nike, Zara, etc. For ZAVRIX Peak Sport world-class product catalog.",
+      "cardImage": "assets/data/images/categories/tshirts.jpg",
       "tag": "Casual Wear",
       "products": {
         "crew-neck-tshirt": {
@@ -21,7 +21,7 @@
           ],
           "cardImage": "assets/images/tshirt/crewneck-card.jpg",
           "images": [
-            "assets/images/tshirt/crewneck1.jpg",
+            "assets/data/images/t_shirts/Crew_Neck/main_image_1.jpg",
             "assets/images/tshirt/crewneck2.jpg"
           ]
         },
@@ -39,7 +39,8 @@
           ],
           "cardImage": "assets/images/tshirt/vneck-card.jpg",
           "images": [
-            "assets/images/tshirt/vneck1.jpg",
+            "assets/data/images/t_shirts/V_Neck_T_Shirt/main_image_1.jpg",
+            
             "assets/images/tshirt/vneck2.jpg"
           ]
         },
@@ -57,7 +58,7 @@
           ],
           "cardImage": "assets/images/tshirt/oversized-card.jpg",
           "images": [
-            "assets/images/tshirt/oversized1.jpg",
+            "assets/data/images/t_shirts/Oversized_T_Shirt/main_image_1.jpg",
             "assets/images/tshirt/oversized2.jpg"
           ]
         },
@@ -314,7 +315,7 @@
     "tracksuits": {
       "id": "tracksuits",
       "title": "TRACKSUIT",
-      "description": "International tracksuit categories for athletes, fashion, and export. All YAHTAN IMPEX standards.",
+      "description": "International tracksuit categories for athletes, fashion, and export. All ZAVRIX Peak Sport standards.",
       "cardImage": "assets/images/categories/tracksuit.jpg",
       "products": {
         "classic-tracksuit": {

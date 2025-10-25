@@ -89,7 +89,7 @@
 
 .product-image {
   width: 100%;
-  height: 220px;
+  height: 320px;
   border-radius: 12px;
   overflow: hidden;
   background: linear-gradient(180deg,#072233,#0f3950);
@@ -372,7 +372,8 @@ function renderProducts() {
   document.title = `${category.title} — ZAVRIX Peak Sport`;
   
   productsGrid.innerHTML = Object.values(category.products).map(product => {
-    const imgSrc = product.cardImage || (product.images && product.images[0]) || 'https://via.placeholder.com/400x300?text=Product';
+    console.log(product)
+    const imgSrc = (product.images && product.images[0]);
     const tagHtml = product.tag ? `<div class="product-tag">${product.tag}</div>` : '';
     
     return `
