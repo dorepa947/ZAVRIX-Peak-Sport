@@ -388,20 +388,6 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// Theme management
-function toggleTheme() {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
-}
-
-function initializeTheme() {
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-}
-
 // Cart functionality
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -429,7 +415,6 @@ function viewCart() {
   window.open(whatsappUrl, '_blank');
 }
 
-// Initialize theme and app
-initializeTheme();
+// Initialize app (no theme system)
 updateCartCount();
 loadData();

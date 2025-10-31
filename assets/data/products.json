@@ -19,10 +19,10 @@
             "Double-Stitched Hems",
             "Machine Washable"
           ],
-          "cardImage": "assets/images/tshirt/crewneck-card.jpg",
+          "cardImage": "assets/data/images/tshirts/crew-neck-tshirt/main_image_1.jpg",
           "images": [
-            "assets/data/images/t_shirts/Crew_Neck/main_image_1.jpg",
-            "assets/images/tshirt/crewneck2.jpg"
+            "assets/data/images/tshirts/crew-neck-tshirt/main_image_1.jpg",
+            "assets/data/images/tshirts/crew-neck-tshirt/main_image_2.jpg"
           ]
         },
         "vneck-tshirt": {
@@ -37,11 +37,10 @@
             "Tagless Comfort",
             "Machine Wash Safe"
           ],
-          "cardImage": "assets/images/tshirt/vneck-card.jpg",
+          "cardImage": "assets/data/images/tshirts/vneck-tshirt/main_image_1.jpg",
           "images": [
-            "assets/data/images/t_shirts/V_Neck_T_Shirt/main_image_1.jpg",
-            
-            "assets/images/tshirt/vneck2.jpg"
+            "assets/data/images/tshirts/vneck-tshirt/main_image_1.jpg",
+            "assets/data/images/tshirts/vneck-tshirt/main_image_2.jpg"
           ]
         },
         "oversized-tshirt": {
@@ -56,10 +55,10 @@
             "Drop Shoulder Design",
             "Streetwear Inspired"
           ],
-          "cardImage": "assets/images/tshirt/oversized-card.jpg",
+          "cardImage": "assets/data/images/tshirts/oversized-tshirt/main_image_1.jpg",
           "images": [
-            "assets/data/images/t_shirts/Oversized_T_Shirt/main_image_1.jpg",
-            "assets/images/tshirt/oversized2.jpg"
+            "assets/data/images/tshirts/oversized-tshirt/main_image_1.jpg",
+            "assets/data/images/tshirts/oversized-tshirt/main_image_2.jpg"
           ]
         },
         "athletic-tshirt": {
@@ -74,10 +73,10 @@
             "Breathable Mesh Panels",
             "Anti-Odor Treatment"
           ],
-          "cardImage": "assets/images/tshirt/athletic-card.jpg",
+          "cardImage": "assets/data/images/tshirts/athletic-tshirt/main_image_1.jpg",
           "images": [
-            "assets/images/tshirt/athletic1.jpg",
-            "assets/images/tshirt/athletic2.jpg"
+            "assets/data/images/tshirts/athletic-tshirt/main_image_1.jpg",
+            "assets/data/images/tshirts/athletic-tshirt/main_image_2.jpg"
           ]
         }
       }
@@ -86,7 +85,7 @@
       "id": "shorts",
       "title": "SHORTS",
       "description": "Global-standard shorts categories for summer, sports, and fashion — for eCommerce & export.",
-      "cardImage": "assets/images/categories/shorts.jpg",
+      "cardImage": "assets/data/images/categories/shorts.jpg",
       "tag": "Hot Picks",
       "products": {
         "casual-cotton-shorts": {
@@ -101,9 +100,9 @@
             "Side & Back Pockets",
             "Relaxed/Slim Fit"
           ],
-          "cardImage": "assets/images/shorts/casual-cotton-card.jpg",
+          "cardImage": "assets/data/images/shorts/casual-cotton-shorts/main_image_1.jpg",
           "images": [
-            "assets/images/shorts/casual-cotton1.jpg"
+            "assets/data/images/shorts/casual-cotton-shorts/main_image_1.jpg"
           ]
         },
         "athletic-running-shorts": {
@@ -118,9 +117,9 @@
             "Elastic Waistband",
             "Mesh Lining"
           ],
-          "cardImage": "assets/images/shorts/athletic-card.jpg",
+          "cardImage": "assets/data/images/shorts/athletic-running-shorts/main_image_1.jpg",
           "images": [
-            "assets/images/shorts/athletic1.jpg"
+            "assets/data/images/shorts/athletic-running-shorts/main_image_1.jpg"
           ]
         },
         "cargo-shorts": {
@@ -135,9 +134,9 @@
             "Heavyweight Cotton",
             "Adjustable Waist"
           ],
-          "cardImage": "assets/images/shorts/cargo-card.jpg",
+          "cardImage": "assets/data/images/shorts/cargo-shorts/main_image_1.jpg",
           "images": [
-            "assets/images/shorts/cargo1.jpg"
+            "assets/data/images/shorts/cargo-shorts/main_image_1.jpg"
           ]
         },
         "denim-shorts": {
@@ -152,9 +151,9 @@
             "Classic Zipper & Button",
             "Trendy Cuts"
           ],
-          "cardImage": "assets/images/shorts/denim-card.jpg",
+          "cardImage": "assets/data/images/shorts/denim-shorts/main_image_1.jpg",
           "images": [
-            "assets/images/shorts/denim1.jpg"
+            "assets/data/images/shorts/denim-shorts/main_image_1.jpg"
           ]
         }
       }
@@ -163,7 +162,7 @@
       "id": "polo-shirts",
       "title": "POLO SHIRT",
       "description": "International polo shirt types for casual, formal, and sports. Used in fashion & export sector.",
-      "cardImage": "assets/images/categories/polo.jpg",
+      "cardImage": "assets/data/images/categories/polo.jpg",
       "products": {
         "classic-cotton-polo": {
           "id": "classic-cotton-polo",
@@ -177,9 +176,9 @@
             "Short Sleeve",
             "Button Placket"
           ],
-          "cardImage": "assets/images/polo/classic-cotton-card.jpg",
+          "cardImage": "assets/data/images/polo-shirts/classic-cotton-polo/main_image_1.jpg",
           "images": [
-            "assets/images/polo/classic-cotton1.jpg"
+            "assets/data/images/polo-shirts/classic-cotton-polo/main_image_1.jpg"
           ]
         },
         "performance-polo": {
@@ -194,9 +193,9 @@
             "Flexible Fabric",
             "Quick Dry"
           ],
-          "cardImage": "assets/images/polo/performance-card.jpg",
+          "cardImage": "assets/data/images/polo-shirts/performance-polo/main_image_1.jpg",
           "images": [
-            "assets/images/polo/performance1.jpg"
+            "assets/data/images/polo-shirts/performance-polo/main_image_1.jpg"
           ]
         },
         "slim-fit-polo": {
@@ -211,9 +210,9 @@
             "Flexible Cotton/Poly Blend",
             "Lightweight"
           ],
-          "cardImage": "assets/images/polo/slimfit-card.jpg",
+          "cardImage": "assets/data/images/polo-shirts/slim-fit-polo/main_image_1.jpg",
           "images": [
-            "assets/images/polo/slimfit1.jpg"
+            "assets/data/images/polo-shirts/slim-fit-polo/main_image_1.jpg"
           ]
         },
         "long-sleeve-polo": {
@@ -228,9 +227,9 @@
             "Soft Touch Jersey or Pique",
             "Button Placket"
           ],
-          "cardImage": "assets/images/polo/longsleeve-card.jpg",
+          "cardImage": "assets/data/images/polo-shirts/long-sleeve-polo/main_image_1.jpg",
           "images": [
-            "assets/images/polo/longsleeve1.jpg"
+            "assets/data/images/polo-shirts/long-sleeve-polo/main_image_1.jpg"
           ]
         }
       }
@@ -239,7 +238,7 @@
       "id": "hoodies",
       "title": "HOODIE",
       "description": "World-class hoodie selection in accordance with international eCommerce and export standards.",
-      "cardImage": "assets/images/categories/hoodies.jpg",
+      "cardImage": "assets/data/images/categories/hoodies.jpg",
       "tag": "Seasonal",
       "products": {
         "pullover-hoodie": {
@@ -254,9 +253,9 @@
             "Hood with Drawcord",
             "Ribbed Cuffs & Hem"
           ],
-          "cardImage": "assets/images/hoodie/pullover-card.jpg",
+          "cardImage": "assets/data/images/hoodies/pullover-hoodie/main_image_1.jpg",
           "images": [
-            "assets/images/hoodie/pullover1.jpg"
+            "assets/data/images/hoodies/pullover-hoodie/main_image_1.jpg"
           ]
         },
         "zipup-hoodie": {
@@ -271,9 +270,9 @@
             "Adjustable Hood",
             "Soft Touch Fabric"
           ],
-          "cardImage": "assets/images/hoodie/zipup-card.jpg",
+          "cardImage": "assets/data/images/hoodies/zipup-hoodie/main_image_1.jpg",
           "images": [
-            "assets/images/hoodie/zipup1.jpg"
+            "assets/data/images/hoodies/zipup-hoodie/main_image_1.jpg"
           ]
         },
         "oversized-hoodie": {
@@ -288,9 +287,9 @@
             "Deep Hood",
             "Ultra Soft Fleece"
           ],
-          "cardImage": "assets/images/hoodie/oversized-card.jpg",
+          "cardImage": "assets/data/images/hoodies/oversized-hoodie/main_image_1.jpg",
           "images": [
-            "assets/images/hoodie/oversized1.jpg"
+            "assets/data/images/hoodies/oversized-hoodie/main_image_1.jpg"
           ]
         },
         "tech-hoodie": {
@@ -305,9 +304,9 @@
             "Zip Pockets",
             "Breathable Design"
           ],
-          "cardImage": "assets/images/hoodie/tech-card.jpg",
+          "cardImage": "assets/data/images/hoodies/tech-hoodie/main_image_1.jpg",
           "images": [
-            "assets/images/hoodie/tech1.jpg"
+            "assets/data/images/hoodies/tech-hoodie/main_image_1.jpg"
           ]
         }
       }
@@ -316,7 +315,7 @@
       "id": "tracksuits",
       "title": "TRACKSUIT",
       "description": "International tracksuit categories for athletes, fashion, and export. All ZAVRIX Peak Sport standards.",
-      "cardImage": "assets/images/categories/tracksuit.jpg",
+      "cardImage": "assets/data/images/categories/tracksuit.jpg",
       "products": {
         "classic-tracksuit": {
           "id": "classic-tracksuit",
@@ -330,9 +329,9 @@
             "Poly-Cotton or Poly",
             "Side Pockets"
           ],
-          "cardImage": "assets/images/tracksuit/classic-card.jpg",
+          "cardImage": "assets/data/images/tracksuits/classic-tracksuit/main_image_1.jpg",
           "images": [
-            "assets/images/tracksuit/classic1.jpg"
+            "assets/data/images/tracksuits/classic-tracksuit/main_image_1.jpg"
           ]
         },
         "slimfit-tracksuit": {
@@ -347,9 +346,9 @@
             "Snug Fit",
             "Minimal Branding"
           ],
-          "cardImage": "assets/images/tracksuit/slimfit-card.jpg",
+          "cardImage": "assets/data/images/tracksuits/slimfit-tracksuit/main_image_1.jpg",
           "images": [
-            "assets/images/tracksuit/slimfit1.jpg"
+            "assets/data/images/tracksuits/slimfit-tracksuit/main_image_1.jpg"
           ]
         },
         "training-tracksuit": {
@@ -364,9 +363,9 @@
             "Quick-Dry",
             "Flexible Fit"
           ],
-          "cardImage": "assets/images/tracksuit/training-card.jpg",
+          "cardImage": "assets/data/images/tracksuits/training-tracksuit/main_image_1.jpg",
           "images": [
-            "assets/images/tracksuit/training1.jpg"
+            "assets/data/images/tracksuits/training-tracksuit/main_image_1.jpg"
           ]
         },
         "streetwear-tracksuit": {
@@ -381,9 +380,9 @@
             "Premium Poly/Cotton",
             "Zipper & Snap Features"
           ],
-          "cardImage": "assets/images/tracksuit/streetwear-card.jpg",
+          "cardImage": "assets/data/images/tracksuits/streetwear-tracksuit/main_image_1.jpg",
           "images": [
-            "assets/images/tracksuit/streetwear1.jpg"
+            "assets/data/images/tracksuits/streetwear-tracksuit/main_image_1.jpg"
           ]
         }
       }
@@ -392,7 +391,7 @@
       "id": "pajamas",
       "title": "PAJAMA",
       "description": "International standard pajama varieties for global buyers, eCommerce, and boutique brands.",
-      "cardImage": "assets/images/categories/pajama.jpg",
+      "cardImage": "assets/data/images/categories/pajama.jpg",
       "products": {
         "cotton-pajama-set": {
           "id": "cotton-pajama-set",
@@ -406,9 +405,9 @@
             "Soft Waistband",
             "Machine Washable"
           ],
-          "cardImage": "assets/images/pajama/cotton-card.jpg",
+          "cardImage": "assets/data/images/pajamas/cotton-pajama-set/main_image_1.jpg",
           "images": [
-            "assets/images/pajama/cotton1.jpg"
+            "assets/data/images/pajamas/cotton-pajama-set/main_image_1.jpg"
           ]
         },
         "silk-pajama-set": {
@@ -423,9 +422,9 @@
             "Shimmer Finish",
             "Gentle on Skin"
           ],
-          "cardImage": "assets/images/pajama/silk-card.jpg",
+          "cardImage": "assets/data/images/pajamas/silk-pajama-set/main_image_1.jpg",
           "images": [
-            "assets/images/pajama/silk1.jpg"
+            "assets/data/images/pajamas/silk-pajama-set/main_image_1.jpg"
           ]
         },
         "flannel-pajama-set": {
@@ -440,9 +439,9 @@
             "Elastic Waist",
             "Thermal Comfort"
           ],
-          "cardImage": "assets/images/pajama/flannel-card.jpg",
+          "cardImage": "assets/data/images/pajamas/flannel-pajama-set/main_image_1.jpg",
           "images": [
-            "assets/images/pajama/flannel1.jpg"
+            "assets/data/images/pajamas/flannel-pajama-set/main_image_1.jpg"
           ]
         },
         "lounge-pajama-set": {
@@ -457,9 +456,9 @@
             "Wide Waistband",
             "Fashionable Lounge Look"
           ],
-          "cardImage": "assets/images/pajama/lounge-card.jpg",
+          "cardImage": "assets/data/images/pajamas/lounge-pajama-set/main_image_1.jpg",
           "images": [
-            "assets/images/pajama/lounge1.jpg"
+            "assets/data/images/pajamas/lounge-pajama-set/main_image_1.jpg"
           ]
         }
       }

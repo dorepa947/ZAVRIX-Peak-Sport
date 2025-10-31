@@ -223,9 +223,6 @@
       <a href="categories.html">Categories</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
-      <div class="theme-toggle" onclick="toggleTheme()">
-        <div class="theme-toggle-slider"></div>
-      </div>
     </nav>
   </header>
 
@@ -326,20 +323,6 @@ function escapeHtml(str){
   return String(str).replace(/[&<>"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));
 }
 
-// Theme management
-function toggleTheme() {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
-}
-
-function initializeTheme() {
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-}
-
 // Cart functionality
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -367,8 +350,7 @@ function viewCart() {
   window.open(whatsappUrl, '_blank');
 }
 
-// Initialize theme and app
-initializeTheme();
+// Initialize app (theme system removed)
 updateCartCount();
 loadData();
 </script>
