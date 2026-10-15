@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop | ZAVRIX Peak Sport</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+body{display:block;padding:0}
+.shop{max-width:1200px;margin:auto;padding:25px 16px}
+nav{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+nav a{color:white;text-decoration:none}
+.hero{padding:35px 20px;background:linear-gradient(135deg,#123d32,#071621);border-radius:16px;margin-bottom:25px}
+.hero h1{color:white;font-size:36px}
+.controls{display:flex;gap:12px;margin:20px 0;flex-wrap:wrap}
+input,select{padding:12px;border-radius:8px;background:#10201f;color:white;border:1px solid #53615e}
+#search{flex:1;min-width:180px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{padding:12px;border:1px solid #315148;border-radius:14px;background:#0f2924}
+.card img{width:100%;height:220px;object-fit:contain;background:white;border-radius:8px}
+.card h3{color:white}
+.card p{line-height:1.5}
+.card label{display:block;margin-top:10px}
+.card select,.card input{width:100%;margin-top:5px}
+.order{display:block;background:#8ce300;color:#071621;text-align:center;padding:12px;margin-top:15px;border-radius:8px;text-decoration:none;font-weight:bold}
+h2{color:white}
+</style>
+</head>
+<body>
+<div class="shop">
+<nav>
+<a href="index.html"><strong>ZAVRIX Peak Sport</strong></a>
+<a href="index.html">Home</a>
+<a href="categories.html">Categories</a>
+<a href="shop.html">Shop</a>
+</nav>
+
+<section class="hero">
+<h1>Shop Premium Sportswear</h1>
+<p>Discover clothing and accessories made for your style.</p>
+<p>Select your product and order directly through WhatsApp.</p>
+</section>
+
+<div class="controls">
+<input id="search" placeholder="Search products...">
+<select id="category">
+<option value="all">All Categories</option>
+</select>
+</div>
+
+<div id="products">Loading products...</div>
+</div>
+
+<script>
+// Replace with your WhatsApp number including country code.
+// Example format: 923001234567
+const WHATSAPP_NUMBER = "923291430316";
+
+const output = document.getElementById("products");
+const search = document.getElementById("search");
+const categorySelect = document.getElementById("category");
+let allProducts = [];
+
+function render(){
+ const term=search.value.toLowerCase();
+ const cat=categorySelect.value;
+ const items=allProducts.filter(p=>
+  (cat==="all"||p.cat===cat)&&
+  (p.title+" "+p.description+" "+p.catTitle).toLowerCase().includes(term)
+ );
+
+ if(!items.length){
+  output.innerHTML="<p>No products found.</p>";
+  return;
+ }
+
+ output.innerHTML='<div class="grid">'+items.map((p,i)=>`
+ <article class="card">
+ <img src="${p.image}" alt="${p.title}" onerror="this.onerror=null;this.src='assets/logo.png'">
+ <h3>${p.title}</h3>
+ <p>${p.description}</p>
+ <p><strong>Price:</strong> Contact us for a quote</p>
+ <label>Size</label>
+ <select class="size">${(p.sizes.length?p.sizes:["Confirm with us"]).map(s=>`<option>${s}</option>`).join("")}</select>
+ <label>Colour</label>
+ <select class="colour">${(p.colors.length?p.colors:["Confirm with us"]).map(c=>`<option>${c}</option>`).join("")}</select>
+ <label>Quantity</label>
+ <input class="qty" type="number" min="1" max="999" value="1">
+ <a href="#" class="order" data-index="${i}">Order on WhatsApp</a>
+ </article>`).join("")+'</div>';
+
+ output.querySelectorAll(".order").forEach((btn,i)=>{
+  btn.onclick=e=>{
+   e.preventDefault();
+   const card=btn.closest(".card");
+   const qty=Number(card.querySelector(".qty").value);
+   if(!Number.isInteger(qty)||qty<1||qty>999){
+    alert("Enter a quantity between 1 and 999.");
+    return;
+   }
+   if(!/^92\d{10}$/.test(WHATSAPP_NUMBER)){
+    alert("Please add your correct WhatsApp number in the code first.");
+    return;
+   }
+   const p=items[i];
+   const msg=`Hello ZAVRIX Peak Sport!\nProduct: ${p.title}\nCategory: ${p.catTitle}\nSize: ${card.querySelector(".size").value}\nColour: ${card.querySelector(".colour").value}\nQuantity: ${qty}\nPlease confirm price and availability.`;
+   window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(msg),"_blank");
+  };
+ });
+}
+
+fetch("assets/data/products.json")
+.then(r=>{if(!r.ok)throw Error("Could not load products");return r.json()})
+.then(data=>{
+ Object.entries(data.categories||{}).forEach(([cat,c])=>{
+  categorySelect.add(new Option(c.title||cat,cat));
+  Object.entries(c.products||{}).forEach(([id,p])=>{
+   allProducts.push({
+    title:p.title||id,
+    description:p.description||"Premium quality product.",
+    image:p.cardImage||(p.images&&p.images[0])||c.cardImage||"assets/logo.png",
+    sizes:Array.isArray(p.sizes)?p.sizes:[],
+    colors:Array.isArray(p.colors)?p.colors:[],
+    cat:cat,
+    catTitle:c.title||cat
+   });
+  });
+ });
+ render();
+})
+.catch(err=>{
+ console.error(err);
+ output.textContent="Products could not load. Please check the product data file.";
+});
+
+search.addEventListener("input",render);
+categorySelect.addEventListener("change",render);
+</script>
+</body>
+</html>
