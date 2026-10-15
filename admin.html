@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZAVRIX Admin Panel</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 20px; background: #f3f4f6;
+      color: #171717; font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 900px; margin: 20px auto; background: white;
+      padding: 24px; border-radius: 14px;
+    }
+    h1 { margin-top: 0; }
+    input, textarea, button {
+      width: 100%; padding: 12px; margin: 7px 0;
+      font: inherit; border-radius: 7px;
+    }
+    input, textarea { border: 1px solid #ccc; }
+    button {
+      background: #111; color: white; border: 0;
+      cursor: pointer; font-weight: bold;
+    }
+    button:disabled { opacity: .5; cursor: wait; }
+    .secondary { background: #555; }
+    .danger { background: #b91c1c; }
+    .product {
+      border: 1px solid #ddd; padding: 14px; border-radius: 9px;
+      margin-top: 12px; overflow-wrap: anywhere;
+    }
+    .product img {
+      width: 100px; height: 100px; object-fit: cover;
+      border-radius: 7px;
+    }
+    .hidden { display: none; }
+    .note { color: #555; font-size: 14px; line-height: 1.5; }
+    #status { white-space: pre-wrap; margin: 12px 0; }
+    .actions { display: flex; gap: 8px; }
+    .actions button { flex: 1; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>ZAVRIX Admin Panel</h1>
+    <p class="note">Log in to manage your store products.</p>
+    <div id="status" role="status"></div>
+
+    <section id="loginSection">
+      <h2>Admin Login</h2>
+      <form id="loginForm">
+        <input id="email" type="email" placeholder="Admin email" required>
+        <input id="password" type="password" placeholder="Password" required>
+        <button id="loginButton" type="submit">Log In</button>
+      </form>
+    </section>
+
+    <section id="adminSection" class="hidden">
+      <button id="logoutButton" class="secondary" type="button">Log Out</button>
+      <h2 id="formHeading">Add New Product</h2>
+
+      <form id="productForm">
+        <input id="name" placeholder="Product name" required>
+        <input id="category" placeholder="Category (e.g. Hoodies)" required>
+        <input id="price" type="number" min="0" step="0.01"
+               placeholder="Price in USD" required>
+        <input id="image" type="url" placeholder="Product image URL">
+        <textarea id="description" placeholder="Product description"></textarea>
+        <input id="fabric" placeholder="Fabric (e.g. Cotton fleece)">
+        <input id="accessories" placeholder="Accessories / extra details">
+        <input id="sizes" placeholder="Sizes (e.g. S, M, L, XL)">
+        <input id="colors" placeholder="Colors (e.g. Black, White)">
+        <button id="saveButton" type="submit">Save Product</button>
+        <button id="cancelButton" class="secondary hidden" type="button">
+          Cancel Edit
+        </button>
+      </form>
+
+      <h2>Existing Products</h2>
+      <button id="refreshButton" class="secondary" type="button">
+        Refresh Products
+      </button>
+      <div id="productsList"></div>
+    </section>
+  </main>
+
+  <script>
+    // Replace these two values with your Supabase Project URL
+    // and Publishable key. Never use a Secret/service_role key here.
+    const SUPABASE_URL = "https://usecbrtftqfgrqdqdggu.supabase.co/rest/v1/";
+    const SUPABASE_KEY = "sb_publishable_jKnx0fRwUhSipbtj7A0MIA_0LupoxmG";
+
+    const statusBox = document.getElementById("status");
+    const loginSection = document.getElementById("loginSection");
+    const adminSection = document.getElementById("adminSection");
+    const productForm = document.getElementById("productForm");
+    const productsList = document.getElementById("productsList");
+    let editingId = null;
+    let busy = false;
+
+    const configReady =
+      SUPABASE_URL.startsWith("https://") &&
+      !SUPABASE_URL.includes("PASTE_") &&
+      SUPABASE_KEY.length > 20 &&
+      !SUPABASE_KEY.includes("PASTE_");
+
+    let db = null;
+
+    function showStatus(message, isError = false) {
+      statusBox.textContent = message;
+      statusBox.style.color = isError ? "#b91c1c" : "#166534";
+    }
+
+    function setBusy(value) {
+      busy = value;
+      document.querySelectorAll("button").forEach(button => {
+        button.disabled = value;
+      });
+    }
+
+    function getFormData() {
+      return {
+        name: document.getElementById("name").value.trim(),
+        category: document.getElementById("category").value.trim(),
+        price_usd: Number(document.getElementById("price").value),
+        image_url: document.getElementById("image").value.trim(),
+        description: document.getElementById("description").value.trim(),
+        fabric: document.getElementById("fabric").value.trim(),
+        accessories: document.getElementById("accessories").value.trim(),
+        sizes: document.getElementById("sizes").value.trim(),
+        colors: document.getElementById("colors").value.trim()
+      };
+    }
+
+    function resetForm() {
+      productForm.reset();
+      editingId = null;
+      document.getElementById("formHeading").textContent = "Add New Product";
+      document.getElementById("saveButton").textContent = "Save Product";
+      document.getElementById("cancelButton").classList.add("hidden");
+    }
+
+    async function loadProducts() {
+      if (!db || busy) return;
+      setBusy(true);
+      try {
+        const { data, error } = await db
+          .from("products")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) throw error;
+        productsList.replaceChildren();
+
+        if (!data.length) {
+          productsList.textContent = "No products yet. Add your first product above.";
+        }
+
+        data.forEach(product => {
+          const card = document.createElement("article");
+          card.className = "product";
+
+          const title = document.createElement("h3");
+          title.textContent = product.name;
+
+          const price = document.createElement("p");
+          price.textContent = "$" + Number(product.price_usd).toFixed(2);
+
+          const category = document.createElement("p");
+          category.textContent = "Category: " + product.category;
+
+          const details = document.createElement("p");
+          details.textContent =
+            "Fabric: " + (product.fabric || "Not specified") +
+            " | Accessories: " + (product.accessories || "Not specified");
+
+          card.append(title, price, category, details);
+
+          if (product.image_url) {
+            const image = document.createElement("img");
+            image.src = product.image_url;
+            image.alt = product.name;
+            image.loading = "lazy";
+            image.onerror = () => image.remove();
+            card.prepend(image);
+          }
+
+          const actions = document.createElement("div");
+          actions.className = "actions";
+
+          const edit = document.createElement("button");
+          edit.type = "button";
+          edit.textContent = "Edit";
+          edit.addEventListener("click", () => {
+            editingId = product.id;
+            document.getElementById("name").value = product.name || "";
+            document.getElementById("category").value = product.category || "";
+            document.getElementById("price").value = product.price_usd ?? 0;
+            document.getElementById("image").value = product.image_url || "";
+            document.getElementById("description").value = product.description || "";
+            document.getElementById("fabric").value = product.fabric || "";
+            document.getElementById("accessories").value = product.accessories || "";
+            document.getElementById("sizes").value = product.sizes || "";
+            document.getElementById("colors").value = product.colors || "";
+            document.getElementById("formHeading").textContent = "Edit Product";
+            document.getElementById("saveButton").textContent = "Update Product";
+            document.getElementById("cancelButton").classList.remove("hidden");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+
+          const remove = document.createElement("button");
+          remove.type = "button";
+          remove.textContent = "Delete";
+          remove.className = "danger";
+          remove.addEventListener("click", async () => {
+            if (busy || !confirm("Delete " + product.name + "?")) return;
+            setBusy(true);
+            try {
+              const { error } = await db.from("products")
+                .delete().eq("id", product.id);
+              if (error) throw error;
+              showStatus("Product deleted.");
+              await loadProducts();
+            } catch (error) {
+              showStatus("Delete failed: " + error.message, true);
+            } finally {
+              setBusy(false);
+            }
+          });
+
+          actions.append(edit, remove);
+          card.append(actions);
+          productsList.append(card);
+        });
+      } catch (error) {
+        showStatus("Could not load products: " + error.message, true);
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      if (!configReady || busy) return;
+      setBusy(true);
+      try {
+        const { error } = await db.auth.signInWithPassword({
+          email: document.getElementById("email").value.trim(),
+          password: document.getElementById("password").value
+        });
+        if (error) throw error;
+
+        loginSection.classList.add("hidden");
+        adminSection.classList.remove("hidden");
+        showStatus("Logged in. You can manage products.");
+        await loadProducts();
+      } catch (error) {
+        showStatus("Login failed: " + error.message, true);
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    productForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      if (busy || !db) return;
+
+      const item = getFormData();
+      if (!item.name || !item.category ||
+          !Number.isFinite(item.price_usd) || item.price_usd < 0) {
+        showStatus("Enter a valid name, category, and price.", true);
+        return;
+      }
+
+      setBusy(true);
+      try {
+        const result = editingId === null
+          ? await db.from("products").insert(item)
+          : await db.from("products").update(item).eq("id", editingId);
+
+        if (result.error) throw result.error;
+        showStatus(editingId === null ? "Product added!" : "Product updated!");
+        resetForm();
+        await loadProducts();
+      } catch (error) {
+        showStatus("Save failed: " + error.message, true);
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    document.getElementById("cancelButton").addEventListener("click", resetForm);
+    document.getElementById("refreshButton").addEventListener("click", loadProducts);
+
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+      if (busy) return;
+      setBusy(true);
+      try {
+        const { error } = await db.auth.signOut();
+        if (error) throw error;
+        adminSection.classList.add("hidden");
+        loginSection.classList.remove("hidden");
+        resetForm();
+        showStatus("Logged out.");
+      } catch (error) {
+        showStatus("Logout failed: " + error.message, true);
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    async function start() {
+      if (!configReady) {
+        showStatus("Setup needed: replace both Supabase placeholder values in this file.", true);
+        return;
+      }
+
+      if (!window.supabase) {
+        showStatus("Supabase library did not load. Check your internet connection.", true);
+        return;
+      }
+
+      db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+      const { data, error } = await db.auth.getSession();
+      if (error) {
+        showStatus("Could not check login: " + error.message, true);
+        return;
+      }
+
+      if (data.session) {
+        loginSection.classList.add("hidden");
+        adminSection.classList.remove("hidden");
+        await loadProducts();
+      }
+    }
+
+    start();
+  </script>
+</body>
+</html>
