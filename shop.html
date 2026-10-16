@@ -109,29 +109,54 @@ function render(){
  });
 }
 
-fetch("assets/data/products.json")
-.then(r=>{if(!r.ok)throw Error("Could not load products");return r.json()})
-.then(data=>{
- Object.entries(data.categories||{}).forEach(([cat,c])=>{
-  categorySelect.add(new Option(c.title||cat,cat));
-  Object.entries(c.products||{}).forEach(([id,p])=>{
+
+(async () => {
+ try {
+  const { createClient } = await import(
+   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+  );
+
+  const SUPABASE_URL = "https://usecbrtftqfgrqdqdggu.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_jKnx0fRwUhSipbtj7A0MIA_0LupoxmG";
+
+  const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const { data, error } = await db
+   .from("products")
+   .select("*")
+   .order("created_at", { ascending: false });
+
+  if (error) throw error;
+
+  data.forEach(p => {
+   const cat = p.category || "Other";
+
+   if (!Array.from(categorySelect.options).some(o => o.value === cat)) {
+    categorySelect.add(new Option(cat, cat));
+   }
+
    allProducts.push({
-    title:p.title||id,
-    description:p.description||"Premium quality product.",
-    image:p.cardImage||(p.images&&p.images[0])||c.cardImage||"assets/logo.png",
-    sizes:Array.isArray(p.sizes)?p.sizes:[],
-    colors:Array.isArray(p.colors)?p.colors:[],
-    cat:cat,
-    catTitle:c.title||cat
+    title: p.name || "Product",
+    description: p.description || "Premium quality product.",
+    image: p.image_url || "assets/logo.png",
+    sizes: Array.isArray(p.sizes)
+     ? p.sizes
+     : (p.sizes || "").split(",").map(s => s.trim()).filter(Boolean),
+    colors: Array.isArray(p.colors)
+     ? p.colors
+     : (p.colors || "").split(",").map(s => s.trim()).filter(Boolean),
+    cat: cat,
+    catTitle: cat,
+    price: p.price_usd
    });
   });
- });
- render();
-})
-.catch(err=>{
- console.error(err);
- output.textContent="Products could not load. Please check the product data file.";
-});
+
+  render();
+ } catch (err) {
+  console.error(err);
+  output.textContent = "Products could not load. Please check Supabase settings.";
+ }
+})();
 
 search.addEventListener("input",render);
 categorySelect.addEventListener("change",render);
