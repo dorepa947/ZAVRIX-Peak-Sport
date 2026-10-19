@@ -24,6 +24,34 @@ input,select{padding:12px;border-radius:8px;background:#10201f;color:white;borde
 .card select,.card input{width:100%;margin-top:5px}
 .order{display:block;background:#8ce300;color:#071621;text-align:center;padding:12px;margin-top:15px;border-radius:8px;text-decoration:none;font-weight:bold}
 h2{color:white}
+ 
+#products {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-height: 100px;
+  color: white;
+}
+
+#products .grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+#products .card {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: white;
+}
+
+#products .card h3,
+#products .card p,
+#products .card label {
+  color: white !important;
+}
+
 </style>
 </head>
 <body>
