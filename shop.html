@@ -119,6 +119,7 @@ function render(){
 
  output.querySelectorAll(".order").forEach((btn,i)=>{
   btn.onclick=e=>{
+   alert("Order button clicked!");
    e.preventDefault();
    const card=btn.closest(".card");
    const qty=Number(card.querySelector(".qty").value);
