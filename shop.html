@@ -132,7 +132,12 @@ function render(){
    }
    const p=items[i];
    const msg=`Hello ZAVRIX Peak Sport!\nProduct: ${p.title}\nCategory: ${p.catTitle}\nSize: ${card.querySelector(".size").value}\nColour: ${card.querySelector(".colour").value}\nQuantity: ${qty}\nPlease confirm price and availability.`;
-   window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(msg),"_blank");
+   const whatsappUrl =
+  "https://api.whatsapp.com/send?phone=" +
+  WHATSAPP_NUMBER +
+  "&text=" + encodeURIComponent(msg);
+
+window.location.href = whatsappUrl;
   };
  });
 }
