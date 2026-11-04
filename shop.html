@@ -1,205 +1,350 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shop | ZAVRIX Peak Sport</title>
+<meta name="theme-color" content="#050609">
+<meta name="description" content="Shop ZAVRIX SPORT premium sportswear.">
+<title>Shop — ZAVRIX SPORT</title>
 <link rel="stylesheet" href="assets/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-body{display:block;padding:0}
-.shop{max-width:1200px;margin:auto;padding:25px 16px}
-nav{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:30px}
-nav a{color:white;text-decoration:none}
-.hero{padding:35px 20px;background:linear-gradient(135deg,#123d32,#071621);border-radius:16px;margin-bottom:25px}
-.hero h1{color:white;font-size:36px}
-.controls{display:flex;gap:12px;margin:20px 0;flex-wrap:wrap}
-input,select{padding:12px;border-radius:8px;background:#10201f;color:white;border:1px solid #53615e}
-#search{flex:1;min-width:180px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.card{padding:12px;border:1px solid #315148;border-radius:14px;background:#0f2924}
-.card img{width:100%;height:220px;object-fit:contain;background:white;border-radius:8px}
-.card h3{color:white}
-.card p{line-height:1.5}
-.card label{display:block;margin-top:10px}
-.card select,.card input{width:100%;margin-top:5px}
-.order{display:block;background:#8ce300;color:#071621;text-align:center;padding:12px;margin-top:15px;border-radius:8px;text-decoration:none;font-weight:bold}
-h2{color:white}
- 
-#products {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  min-height: 100px;
-  color: white;
-}
-
-#products .grid {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 18px;
-}
-
-#products .card {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  color: white;
-}
-
-#products .card h3,
-#products .card p,
-#products .card label {
-  color: white !important;
-}
-
+:root{--s-bg:#050609;--s-panel:#0c1017;--s-line:rgba(222,230,242,.16);--s-text:#f4f6fa;--s-muted:#aeb7c6;--s-silver:#dce2eb;--s-blue:#9eb8e9}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--s-bg);color:var(--s-text);font-family:Arial,Helvetica,sans-serif}
+a{color:inherit;text-decoration:none}
+.shop-shell{max-width:1500px;margin:auto;min-height:100vh;background:#050609;overflow:hidden}
+.utility{min-height:32px;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0 4.2%;background:#030406;border-bottom:1px solid var(--s-line);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#dce2eb}
+.utility a{margin-left:13px}
+.header{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:22px;padding:13px 4.2%;background:rgba(3,5,8,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--s-line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:950;letter-spacing:2px;font-size:24px;white-space:nowrap}
+.brand-mark{font-size:38px;font-style:italic;text-shadow:0 3px 12px #93a9ca;line-height:1}
+.brand small{display:block;text-align:right;font-size:9px;letter-spacing:5px;color:#bdc5d0;margin-top:5px}
+.nav{display:flex;align-items:center;gap:clamp(12px,2vw,27px)}
+.nav a{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#e6eaf0;padding:8px 0}
+.nav a:hover,.nav a.active{color:#fff;border-bottom:1px solid #dce2eb}
+.header-social{display:flex;align-items:center;gap:11px;white-space:nowrap}
+.header-social a{font-size:12px;color:#e9edf4}
+.header-social .wa{color:#39d879}.header-social .ig{color:#f1c4db}
+.shop-hero{position:relative;padding:57px 5% 48px;border-bottom:1px solid var(--s-line);background:radial-gradient(ellipse at 80% 20%,rgba(89,125,192,.19),transparent 32%),radial-gradient(ellipse at 14% 100%,rgba(93,118,156,.13),transparent 38%),linear-gradient(110deg,#090d14,#050609 65%)}
+.shop-hero:after{content:"";position:absolute;right:4%;top:15%;width:200px;height:200px;border:1px solid rgba(198,218,250,.14);border-radius:50%;box-shadow:0 0 0 22px rgba(177,205,248,.025),0 0 0 52px rgba(177,205,248,.018);pointer-events:none}
+.eyebrow{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#b4c5e0}
+.shop-hero h1{font-size:clamp(35px,5vw,62px);letter-spacing:2px;line-height:1;margin:14px 0 12px;text-transform:uppercase;background:linear-gradient(#fff,#aeb8c8);color:transparent;background-clip:text;-webkit-background-clip:text}
+.shop-hero p{font-size:13px;line-height:1.65;color:var(--s-muted);max-width:560px;margin:0}
+.shop-content{padding:30px 4.2% 60px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:24px}
+.toolbar h2{margin:0;font-size:20px;letter-spacing:2px;text-transform:uppercase}
+.results-count{font-size:11px;color:var(--s-muted);margin-top:6px}
+.filters{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.filter-input,.filter-select{height:39px;border:1px solid rgba(214,227,247,.22);border-radius:3px;background:#0c1119;color:#edf2fa;padding:0 12px;outline:none;font-size:11px;min-width:145px}
+.filter-input{width:min(240px,55vw)}
+.filter-input:focus,.filter-select:focus{border-color:#9eb8e9}
+.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+.product-card{min-width:0;position:relative;border:1px solid var(--s-line);background:linear-gradient(145deg,#111722,#07090d 75%);border-radius:4px;overflow:hidden;transition:border-color .18s,transform .18s}
+.product-card:hover{border-color:rgba(215,230,255,.55);transform:translateY(-3px)}
+.product-photo{height:260px;position:relative;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 35%,rgba(95,119,158,.25),rgba(4,7,12,.2) 67%,transparent);overflow:hidden}
+.product-photo img{width:100%;height:100%;display:block;object-fit:contain;object-position:center;padding:12px;transition:transform .25s}
+.product-card:hover .product-photo img{transform:scale(1.035)}
+.product-badge{position:absolute;left:12px;top:12px;padding:5px 7px;background:rgba(5,8,13,.78);border:1px solid var(--s-line);font-size:8px;letter-spacing:1.2px;color:#c7d8f2;text-transform:uppercase}
+.product-details{padding:14px}
+.product-category{font-size:9px;letter-spacing:1.6px;color:#a9c5f1;text-transform:uppercase}
+.product-name{font-size:14px;line-height:1.35;margin:8px 0 7px;min-height:37px;font-weight:700}
+.product-description{font-size:11px;line-height:1.55;color:var(--s-muted);min-height:34px;margin:0 0 11px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.product-price{font-size:17px;font-weight:800;letter-spacing:.3px;color:#f4f7fc;margin:8px 0 13px}
+.product-price small{font-size:9px;color:#aeb8c8;font-weight:500;letter-spacing:1px}
+.card-actions{display:flex;gap:8px}
+.card-btn{flex:1;min-height:37px;padding:8px 9px;border-radius:3px;border:1px solid rgba(224,234,249,.4);background:transparent;color:#f0f4fb;font-size:9px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;cursor:pointer}
+.card-btn.primary{background:linear-gradient(120deg,#edf2f9,#aebbd0);color:#060910;border-color:#edf2f9}
+.card-btn:hover{filter:brightness(1.1)}
+.state-box{min-height:170px;display:grid;place-items:center;text-align:center;border:1px dashed rgba(213,229,250,.23);padding:25px;color:var(--s-muted);font-size:13px;line-height:1.6}
+.state-box strong{display:block;color:#f0f3f8;font-size:16px;margin-bottom:8px}
+.state-box a{display:inline-block;margin-top:13px;color:#dce8fa;border-bottom:1px solid #dce8fa}
+.shop-foot{padding:26px 4.2%;border-top:1px solid var(--s-line);display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:#909daf;font-size:10px}
+.shop-foot a{color:#d5deec}
+.dialog{width:min(680px,calc(100% - 28px));max-height:88vh;overflow:auto;padding:0;border:1px solid rgba(219,232,251,.3);border-radius:5px;background:#090d14;color:#f3f6fb;box-shadow:0 28px 100px #000b}
+.dialog::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(5px)}
+.dialog-inner{display:grid;grid-template-columns:.9fr 1.1fr}
+.dialog-photo{min-height:310px;background:radial-gradient(ellipse,#24334d,#06090f 75%);display:grid;place-items:center}
+.dialog-photo img{width:100%;height:100%;max-height:400px;object-fit:contain;padding:15px}
+.dialog-copy{padding:27px 24px}
+.dialog-copy h2{font-size:22px;margin:9px 0}
+.dialog-copy p{font-size:12px;line-height:1.65;color:var(--s-muted)}
+.dialog-price{font-size:22px;font-weight:800;margin:13px 0}
+.dialog-close{position:absolute;right:10px;top:8px;width:34px;height:34px;border:1px solid #728099;background:#0a0e15;color:white;border-radius:50%;font-size:18px;cursor:pointer}
+.dialog-order{display:inline-flex;margin-top:12px;padding:12px 17px;background:linear-gradient(120deg,#edf2f9,#aebbd0);color:#060910;border-radius:3px;font-size:10px;font-weight:900;letter-spacing:.7px;text-transform:uppercase}
+@media(max-width:1100px){.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.product-photo{height:235px}.header{flex-wrap:wrap}.nav{order:3;width:100%;justify-content:center}}
+@media(max-width:700px){.utility{padding:0 12px;font-size:8px}.header{padding:10px 13px;gap:10px}.brand{font-size:19px}.brand-mark{font-size:31px}.brand small{font-size:8px}.nav{justify-content:flex-start;overflow-x:auto;gap:20px}.nav a{white-space:nowrap;font-size:9px}.header-social{margin-left:auto;gap:7px}.header-social a{font-size:10px}.shop-hero{padding:42px 20px}.shop-hero:after{width:120px;height:120px;right:-30px;top:18%}.shop-content{padding:22px 13px 42px}.toolbar{align-items:flex-start;flex-direction:column}.filters{width:100%}.filter-input{flex:1;width:auto;min-width:110px}.filter-select{min-width:115px;flex:1}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-photo{height:180px}.product-details{padding:10px}.product-name{font-size:12px;min-height:34px}.product-description{font-size:10px;min-height:30px}.product-price{font-size:15px}.card-actions{flex-direction:column;gap:6px}.card-btn{min-height:34px}.dialog-inner{grid-template-columns:1fr}.dialog-photo{min-height:220px;max-height:250px}.dialog-copy{padding:20px}.shop-foot{padding:22px 14px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
 </style>
 </head>
 <body>
-<div class="shop">
-<nav>
-<a href="index.html"><strong>ZAVRIX Peak Sport</strong></a>
-<a href="index.html">Home</a>
-<a href="categories.html">Categories</a>
-<a href="shop.html">Shop</a>
-</nav>
+<div class="shop-shell">
+  <div class="utility"><span>Premium Sportswear | Performance Meets Style</span><span><a href="https://wa.me/923291430316" target="_blank" rel="noopener noreferrer">WhatsApp</a> &nbsp;|&nbsp; <a href="https://www.instagram.com/zavrix_sport?igsh=dnlrMW15andnZHEx" target="_blank" rel="noopener noreferrer">Instagram</a></span></div>
 
-<section class="hero">
-<h1>Shop Premium Sportswear</h1>
-<p>Discover clothing and accessories made for your style.</p>
-<p>Select your product and order directly through WhatsApp.</p>
-</section>
+  <header class="header">
+    <a class="brand" href="index.html"><span class="brand-mark">Z</span><span>ZAVRIX<small>SPORT</small></span></a>
+    <nav class="nav" aria-label="Shop navigation">
+      <a href="index.html">Home</a><a class="active" href="shop.html">Shop</a><a href="shop.html">Men</a><a href="shop.html">Accessories</a><a href="index.html#about">About Us</a><a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="header-social"><a href="https://wa.me/923291430316" target="_blank" rel="noopener noreferrer">WhatsApp</a><span>|</span><a href="https://www.instagram.com/zavrix_sport?igsh=dnlrMW15andnZHEx" target="_blank" rel="noopener noreferrer">Instagram</a></div>
+  </header>
 
-<div class="controls">
-<input id="search" placeholder="Search products...">
-<select id="category">
-<option value="all">All Categories</option>
-</select>
+  <section class="shop-hero">
+    <div class="eyebrow">ZAVRIX SPORT / OFFICIAL COLLECTION</div>
+    <h1>Shop the Collection</h1>
+    <p>Explore premium sportswear from ZAVRIX. Product photos, details and USD prices are loaded from the store catalogue.</p>
+  </section>
+
+  <main class="shop-content">
+    <div class="toolbar">
+      <div><h2>All Products</h2><div class="results-count" id="results-count">Loading products…</div></div>
+      <div class="filters">
+        <input class="filter-input" id="product-search" type="search" placeholder="Search products…" aria-label="Search products">
+        <select class="filter-select" id="category-filter" aria-label="Filter by category"><option value="">All categories</option></select>
+        <select class="filter-select" id="sort-products" aria-label="Sort products">
+          <option value="newest">Newest first</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option><option value="name">Name: A–Z</option>
+        </select>
+      </div>
+    </div>
+
+    <section class="product-grid" id="product-grid" aria-live="polite">
+      <div class="state-box" style="grid-column:1/-1"><div><strong>Loading ZAVRIX products…</strong>Connecting to the store catalogue.</div></div>
+    </section>
+  </main>
+
+  <footer class="shop-foot"><span>© <span id="year"></span> ZAVRIX SPORT · Manufactured in Sialkot, Pakistan</span><span><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="admin.html">Admin</a> &nbsp;·&nbsp; <a href="mailto:zavrixsport@gmail.com">Contact</a></span></footer>
 </div>
 
-<div id="products">Loading products...</div>
-</div>
+<dialog class="dialog" id="product-dialog" aria-label="Product details">
+  <button type="button" class="dialog-close" id="dialog-close" aria-label="Close">×</button>
+  <div class="dialog-inner">
+    <div class="dialog-photo"><img id="dialog-image" alt=""></div>
+    <div class="dialog-copy">
+      <div class="eyebrow" id="dialog-category">ZAVRIX SPORT</div>
+      <h2 id="dialog-name">Product</h2>
+      <div class="dialog-price" id="dialog-price"></div>
+      <p id="dialog-description"></p>
+      <p id="dialog-meta"></p>
+      <a class="dialog-order" id="dialog-order" href="#" target="_blank" rel="noopener noreferrer">Order on WhatsApp ↗</a>
+    </div>
+  </div>
+</dialog>
 
 <script>
-// Replace with your WhatsApp number including country code.
-// Example format: 923001234567
-const WHATSAPP_NUMBER = "923291430316";
-
-const output = document.getElementById("products");
-const search = document.getElementById("search");
-const categorySelect = document.getElementById("category");
-let allProducts = [];
-
-function render(){
- const term=search.value.toLowerCase();
- const cat=categorySelect.value;
- const items=allProducts.filter(p=>
-  (cat==="all"||p.cat===cat)&&
-  (p.title+" "+p.description+" "+p.catTitle).toLowerCase().includes(term)
- );
-
- if(!items.length){
-  output.innerHTML="<p>No products found.</p>";
-  return;
- }
-
- output.innerHTML='<div class="grid">'+items.map((p,i)=>`
- <article class="card">
- <img src="${p.image}" alt="${p.title}" onerror="this.onerror=null;this.src='assets/logo.png'">
- <h3>${p.title}</h3>
- <p>${p.description}</p>
- <p><strong>Price:</strong> Contact us for a quote</p>
- <label>Size</label>
- <select class="size">${(p.sizes.length?p.sizes:["Confirm with us"]).map(s=>`<option>${s}</option>`).join("")}</select>
- <label>Colour</label>
- <select class="colour">${(p.colors.length?p.colors:["Confirm with us"]).map(c=>`<option>${c}</option>`).join("")}</select>
- <label>Quantity</label>
- <input class="qty" type="number" min="1" max="999" value="1">
- <a href="#" class="order" data-index="${i}">Order on WhatsApp</a>
- </article>`).join("")+'</div>';
-
- output.querySelectorAll(".order").forEach((btn,i)=>{
-  btn.onclick=e=>{
-   alert("Order button clicked!");
-   e.preventDefault();
-   const card=btn.closest(".card");
-   const qty=Number(card.querySelector(".qty").value);
-   if(!Number.isInteger(qty)||qty<1||qty>999){
-    alert("Enter a quantity between 1 and 999.");
-    return;
-   }
-   if(!/^92\d{10}$/.test(WHATSAPP_NUMBER)){
-    alert("Please add your correct WhatsApp number in the code first.");
-    return;
-   }
-   const p=items[i];
-   const msg=`Hello ZAVRIX Peak Sport!\nProduct: ${p.title}\nCategory: ${p.catTitle}\nSize: ${card.querySelector(".size").value}\nColour: ${card.querySelector(".colour").value}\nQuantity: ${qty}\nPlease confirm price and availability.`;
-   const whatsappUrl =
-  "https://api.whatsapp.com/send?phone=" +
-  WHATSAPP_NUMBER +
-  "&text=" + encodeURIComponent(msg);
-
-const link = document.createElement("a");
-link.href = whatsappUrl;
-link.target = "_blank";
-link.rel = "noopener";
-document.body.appendChild(link);
-link.click();
-link.remove();
-  };
- });
-}
-
-
-(async () => {
- try {
-  const { createClient } = await import(
-   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
-  );
-
+(function(){
+  "use strict";
   const SUPABASE_URL = "https://usecbrtftqfgrqdqdggu.supabase.co";
+  // Public publishable/anon key already used by the existing ZAVRIX admin panel.
   const SUPABASE_KEY = "sb_publishable_jKnx0fRwUhSipbtj7A0MIA_0LupoxmG";
+  const WHATSAPP_NUMBER = "923291430316";
 
-  const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+  const grid = document.getElementById("product-grid");
+  const count = document.getElementById("results-count");
+  const search = document.getElementById("product-search");
+  const categoryFilter = document.getElementById("category-filter");
+  const sortSelect = document.getElementById("sort-products");
+  const dialog = document.getElementById("product-dialog");
+  const year = document.getElementById("year");
+  if(year) year.textContent = new Date().getFullYear();
 
-  const { data, error } = await db
-   .from("products")
-   .select("*")
-   .order("created_at", { ascending: false });
+  let db = null;
+  let allProducts = [];
 
-  if (error) throw error;
+  const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[char]);
 
-  data.forEach(p => {
-   const cat = p.category || "Other";
+  const formatPrice = value => {
+    const price = Number(value);
+    if(value === null || value === undefined || value === "" || !Number.isFinite(price)) return "Price on request";
+    return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(price);
+  };
 
-   if (!Array.from(categorySelect.options).some(o => o.value === cat)) {
-    categorySelect.add(new Option(cat, cat));
-   }
+  function safeImageUrl(value){
+    if(!value) return "";
+    try{
+      const url = new URL(value, window.location.href);
+      return ["https:","http:"].includes(url.protocol) ? url.href : "";
+    }catch(_){ return ""; }
+  }
 
-   allProducts.push({
-    title: p.name || "Product",
-    description: p.description || "Premium quality product.",
-    image: p.image_url || "assets/logo.png",
-    sizes: Array.isArray(p.sizes)
-     ? p.sizes
-     : (p.sizes || "").split(",").map(s => s.trim()).filter(Boolean),
-    colors: Array.isArray(p.colors)
-     ? p.colors
-     : (p.colors || "").split(",").map(s => s.trim()).filter(Boolean),
-    cat: cat,
-    catTitle: cat,
-    price: p.price_usd
-   });
-  });
+  function stateMessage(title, message, withAdmin){
+    grid.innerHTML = "";
+    const box = document.createElement("div");
+    box.className = "state-box";
+    box.style.gridColumn = "1 / -1";
+    const wrap = document.createElement("div");
+    const strong = document.createElement("strong");
+    strong.textContent = title;
+    const detail = document.createElement("div");
+    detail.textContent = message;
+    wrap.append(strong,detail);
+    if(withAdmin){
+      const link = document.createElement("a");
+      link.href = "admin.html";
+      link.textContent = "Open Admin Panel to add products";
+      wrap.append(link);
+    }
+    box.append(wrap);
+    grid.append(box);
+  }
 
-  render();
-} catch (err) {
-  console.error("SHOP PRODUCT ERROR:", err);
-  output.textContent = "Error: " + (err.message || String(err));
-}
+  function buildCard(product){
+    const card = document.createElement("article");
+    card.className = "product-card";
+
+    const photo = document.createElement("div");
+    photo.className = "product-photo";
+    const imageUrl = safeImageUrl(product.image_url);
+    if(imageUrl){
+      const img = document.createElement("img");
+      img.src = imageUrl;
+      img.alt = product.name || "ZAVRIX product";
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.onerror = () => { img.remove(); photo.textContent = "ZAVRIX SPORT"; };
+      photo.append(img);
+    }else{
+      photo.textContent = "ZAVRIX SPORT";
+    }
+    const badge = document.createElement("span");
+    badge.className = "product-badge";
+    badge.textContent = product.category || "SPORTSWEAR";
+    photo.append(badge);
+
+    const details = document.createElement("div");
+    details.className = "product-details";
+    const category = document.createElement("div");
+    category.className = "product-category";
+    category.textContent = product.category || "ZAVRIX SPORT";
+    const name = document.createElement("h3");
+    name.className = "product-name";
+    name.textContent = product.name || "ZAVRIX Product";
+    const description = document.createElement("p");
+    description.className = "product-description";
+    description.textContent = product.description || "Premium sportswear by ZAVRIX.";
+    const price = document.createElement("div");
+    price.className = "product-price";
+    price.textContent = formatPrice(product.price_usd);
+    const priceUnit = document.createElement("small");
+    priceUnit.textContent = " USD";
+    price.append(priceUnit);
+
+    const actions = document.createElement("div");
+    actions.className = "card-actions";
+    const view = document.createElement("button");
+    view.type = "button";
+    view.className = "card-btn";
+    view.textContent = "Quick View";
+    view.addEventListener("click", () => openDetails(product));
+    const order = document.createElement("a");
+    order.className = "card-btn primary";
+    order.textContent = "Order on WhatsApp";
+    order.target = "_blank";
+    order.rel = "noopener noreferrer";
+    order.href = whatsappLink(product);
+    actions.append(view,order);
+    details.append(category,name,description,price,actions);
+    card.append(photo,details);
+    return card;
+  }
+
+  function whatsappLink(product){
+    const text = "Hi ZAVRIX SPORT, I am interested in " + (product.name || "your product") +
+      (product.price_usd !== null && product.price_usd !== undefined ? " (listed at " + formatPrice(product.price_usd) + ")" : "") +
+      ". Please share more details.";
+    return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(text);
+  }
+
+  function openDetails(product){
+    const image = document.getElementById("dialog-image");
+    const imageUrl = safeImageUrl(product.image_url);
+    image.src = imageUrl || "";
+    image.alt = product.name || "ZAVRIX product";
+    image.style.visibility = imageUrl ? "visible" : "hidden";
+    document.getElementById("dialog-category").textContent = product.category || "ZAVRIX SPORT";
+    document.getElementById("dialog-name").textContent = product.name || "ZAVRIX Product";
+    document.getElementById("dialog-price").textContent = formatPrice(product.price_usd);
+    document.getElementById("dialog-description").textContent = product.description || "Contact us for product details.";
+    const meta = [
+      product.fabric ? "Fabric: " + product.fabric : "",
+      product.accessories ? "Details: " + product.accessories : "",
+      product.sizes ? "Sizes: " + product.sizes : "",
+      product.colors ? "Colors: " + product.colors : ""
+    ].filter(Boolean).join(" · ");
+    document.getElementById("dialog-meta").textContent = meta;
+    document.getElementById("dialog-order").href = whatsappLink(product);
+    if(typeof dialog.showModal === "function") dialog.showModal();
+    else dialog.setAttribute("open","");
+  }
+
+  function populateCategories(products){
+    const current = categoryFilter.value;
+    const categories = [...new Set(products.map(p => String(p.category || "").trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+    categoryFilter.innerHTML = '<option value="">All categories</option>';
+    categories.forEach(category => {
+      const option = document.createElement("option");
+      option.value = category;
+      option.textContent = category;
+      categoryFilter.append(option);
+    });
+    if(categories.includes(current)) categoryFilter.value = current;
+  }
+
+  function render(){
+    const term = search.value.trim().toLowerCase();
+    const selectedCategory = categoryFilter.value;
+    const sort = sortSelect.value;
+    let products = allProducts.filter(product => {
+      const matchesText = [product.name,product.category,product.description,product.fabric]
+        .some(value => String(value || "").toLowerCase().includes(term));
+      const matchesCategory = !selectedCategory || String(product.category || "") === selectedCategory;
+      return matchesText && matchesCategory;
+    });
+
+    if(sort === "price-low") products.sort((a,b) => Number(a.price_usd ?? Infinity)-Number(b.price_usd ?? Infinity));
+    if(sort === "price-high") products.sort((a,b) => Number(b.price_usd ?? -Infinity)-Number(a.price_usd ?? -Infinity));
+    if(sort === "name") products.sort((a,b) => String(a.name || "").localeCompare(String(b.name || "")));
+    if(sort === "newest") products.sort((a,b) => new Date(b.created_at || 0)-new Date(a.created_at || 0));
+
+    count.textContent = products.length + (products.length === 1 ? " product" : " products") + " available";
+    grid.replaceChildren();
+    if(!products.length){
+      stateMessage(allProducts.length ? "No matching products" : "No products yet",
+        allProducts.length ? "Try another search or category." : "Add products in Admin Panel. They will appear here with their photos and prices.", !allProducts.length);
+      return;
+    }
+    const fragment = document.createDocumentFragment();
+    products.forEach(product => fragment.append(buildCard(product)));
+    grid.append(fragment);
+  }
+
+  async function loadProducts(){
+    stateMessage("Loading products…","Connecting to the ZAVRIX catalogue.",false);
+    try{
+      if(!window.supabase || typeof window.supabase.createClient !== "function"){
+        throw new Error("The store connection library did not load. Refresh the page and try again.");
+      }
+      db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+      const {data,error} = await db.from("products").select("*").order("created_at",{ascending:false});
+      if(error) throw error;
+      allProducts = Array.isArray(data) ? data : [];
+      populateCategories(allProducts);
+      render();
+    }catch(error){
+      console.error("ZAVRIX shop load error:",error);
+      stateMessage("Products could not be loaded",error.message || "Please try again later. Check the public products SELECT policy in Supabase.",false);
+    }
+  }
+
+  search.addEventListener("input",render);
+  categoryFilter.addEventListener("change",render);
+  sortSelect.addEventListener("change",render);
+  document.getElementById("dialog-close").addEventListener("click",()=>dialog.close());
+  dialog.addEventListener("click",event=>{if(event.target===dialog) dialog.close();});
+  loadProducts();
 })();
-
-search.addEventListener("input",render);
-categorySelect.addEventListener("change",render);
 </script>
 </body>
 </html>
