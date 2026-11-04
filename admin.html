@@ -1,60 +1,38 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f3f4f6">
   <title>ZAVRIX Admin Panel</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; padding: 20px; background: #f3f4f6;
-      color: #171717; font-family: Arial, sans-serif;
-    }
-    .container {
-      max-width: 900px; margin: 20px auto; background: white;
-      padding: 24px; border-radius: 14px;
-    }
-    h1 { margin-top: 0; }
-    input, textarea, button {
-      width: 100%; padding: 12px; margin: 7px 0;
-      font: inherit; border-radius: 7px;
-    }
-    input, textarea { border: 1px solid #ccc; }
-    button {
-      background: #111; color: white; border: 0;
-      cursor: pointer; font-weight: bold;
-    }
-    button:disabled { opacity: .5; cursor: wait; }
-    .secondary { background: #555; }
-    .danger { background: #b91c1c; }
-    .product {
-      border: 1px solid #ddd; padding: 14px; border-radius: 9px;
-      margin-top: 12px; overflow-wrap: anywhere;
-    }
-    .product img {
-      width: 100px; height: 100px; object-fit: cover;
-      border-radius: 7px;
-    }
-    .hidden { display: none; }
-    .note { color: #555; font-size: 14px; line-height: 1.5; }
-    #status { white-space: pre-wrap; margin: 12px 0; }
-    .actions { display: flex; gap: 8px; }
-    .actions button { flex: 1; }
+    *{box-sizing:border-box}body{margin:0;padding:20px;background:#f3f4f6;color:#171717;font-family:Arial,sans-serif}
+    .container{max-width:1000px;margin:20px auto;background:#fff;padding:24px;border-radius:14px}
+    h1{margin-top:0}h2{margin-top:25px}input,textarea,select,button{width:100%;padding:12px;margin:7px 0;font:inherit;border-radius:7px}
+    input,textarea,select{border:1px solid #ccc;background:#fff;color:#171717}button{background:#111;color:#fff;border:0;cursor:pointer;font-weight:bold}
+    button:disabled{opacity:.5;cursor:wait}.secondary{background:#555}.danger{background:#b91c1c}.hidden{display:none!important}
+    .note{color:#555;font-size:14px;line-height:1.5}#status{white-space:pre-wrap;margin:12px 0;line-height:1.5}
+    .product,.order{border:1px solid #ddd;padding:14px;border-radius:9px;margin-top:12px;overflow-wrap:anywhere;background:#fff}
+    .product img{width:100px;height:100px;object-fit:cover;border-radius:7px}.actions{display:flex;gap:8px;align-items:center}.actions button{flex:1}
+    .order-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px 18px}.order-grid p{margin:5px 0;line-height:1.45}.order h3{margin:0 0 6px}.order-meta{font-size:13px;color:#444}
+    .status-row{display:flex;gap:9px;align-items:center;margin-top:12px}.status-row select{flex:1;margin:0}.status-row button{width:auto;min-width:150px;margin:0}
+    .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.section-head h2{margin-bottom:5px}.section-head button{width:auto;min-width:145px}
+    .pill{display:inline-block;padding:4px 8px;border-radius:20px;background:#e7edf5;color:#1f2937;font-size:11px;font-weight:bold}
+    .empty{padding:20px;border:1px dashed #bbb;border-radius:8px;color:#555;text-align:center}
+    @media(max-width:600px){body{padding:8px}.container{margin:8px auto;padding:16px}.order-grid{grid-template-columns:1fr}.status-row{align-items:stretch;flex-direction:column}.status-row button{width:100%}.section-head button{width:100%}}
   </style>
 </head>
 <body>
   <main class="container">
     <h1>ZAVRIX Admin Panel</h1>
-    <p class="note">Log in to manage your store products.</p>
-    <div id="status" role="status"></div>
-
+    <p class="note">Log in to manage store products and customer orders.</p>
+    <div id="status" role="status" aria-live="polite"></div>
     <section id="loginSection">
       <h2>Admin Login</h2>
       <form id="loginForm">
-        <input id="email" type="email" placeholder="Admin email" required>
-        <input id="password" type="password" placeholder="Password" required>
+        <input id="email" name="email" type="email" placeholder="Admin email" autocomplete="username" required>
+        <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
         <button id="loginButton" type="submit">Log In</button>
       </form>
     </section>
@@ -62,66 +40,55 @@
     <section id="adminSection" class="hidden">
       <button id="logoutButton" class="secondary" type="button">Log Out</button>
       <h2 id="formHeading">Add New Product</h2>
-
       <form id="productForm">
-        <input id="name" placeholder="Product name" required>
-        <input id="category" placeholder="Category (e.g. Hoodies)" required>
-        <input id="price" type="number" min="0" step="0.01"
-               placeholder="Price in USD" required>
-        <input id="image" type="url" placeholder="Product image URL">
-        <textarea id="description" placeholder="Product description"></textarea>
-        <input id="fabric" placeholder="Fabric (e.g. Cotton fleece)">
-        <input id="accessories" placeholder="Accessories / extra details">
-        <input id="sizes" placeholder="Sizes (e.g. S, M, L, XL)">
-        <input id="colors" placeholder="Colors (e.g. Black, White)">
+        <input id="name" name="name" placeholder="Product name" required>
+        <input id="category" name="category" placeholder="Category (e.g. Hoodies)" required>
+        <input id="price" name="price" type="number" min="0" step="0.01" placeholder="Price in USD" required>
+        <input id="image" name="image" type="url" placeholder="Product image URL">
+        <textarea id="description" name="description" placeholder="Product description"></textarea>
+        <input id="fabric" name="fabric" placeholder="Fabric (e.g. Cotton fleece)">
+        <input id="accessories" name="accessories" placeholder="Accessories / extra details">
+        <input id="sizes" name="sizes" placeholder="Sizes (e.g. S, M, L, XL)">
+        <input id="colors" name="colors" placeholder="Colors (e.g. Black, White)">
         <button id="saveButton" type="submit">Save Product</button>
-        <button id="cancelButton" class="secondary hidden" type="button">
-          Cancel Edit
-        </button>
+        <button id="cancelButton" class="secondary hidden" type="button">Cancel Edit</button>
       </form>
 
-      <h2>Existing Products</h2>
-      <button id="refreshButton" class="secondary" type="button">
-        Refresh Products
-      </button>
+      <div class="section-head"><h2>Existing Products</h2><button id="refreshButton" class="secondary" type="button">Refresh Products</button></div>
       <div id="productsList"></div>
+
+      <div class="section-head"><h2>Customer Orders <span class="pill" id="ordersCount">0</span></h2><button id="refreshOrdersButton" class="secondary" type="button">Refresh Orders</button></div>
+      <p class="note">New customer order requests appear here. Change the status after you contact the customer.</p>
+      <div id="ordersList" aria-live="polite"><div class="empty">Orders will appear here.</div></div>
     </section>
   </main>
 
   <script>
-    // Replace these two values with your Supabase Project URL
-    // and Publishable key. Never use a Secret/service_role key here.
+    "use strict";
     const SUPABASE_URL = "https://usecbrtftqfgrqdqdggu.supabase.co";
     const SUPABASE_KEY = "sb_publishable_jKnx0fRwUhSipbtj7A0MIA_0LupoxmG";
-
     const statusBox = document.getElementById("status");
     const loginSection = document.getElementById("loginSection");
     const adminSection = document.getElementById("adminSection");
     const productForm = document.getElementById("productForm");
     const productsList = document.getElementById("productsList");
+    const ordersList = document.getElementById("ordersList");
+    let db = null;
     let editingId = null;
     let busy = false;
-
-    const configReady =
-      SUPABASE_URL.startsWith("https://") &&
-      !SUPABASE_URL.includes("PASTE_") &&
-      SUPABASE_KEY.length > 20 &&
-      !SUPABASE_KEY.includes("PASTE_");
-
-    let db = null;
+    let ordersBusy = false;
+    const configReady = SUPABASE_URL.startsWith("https://") && SUPABASE_KEY.length > 20;
 
     function showStatus(message, isError = false) {
       statusBox.textContent = message;
       statusBox.style.color = isError ? "#b91c1c" : "#166534";
     }
-
     function setBusy(value) {
       busy = value;
       document.querySelectorAll("button").forEach(button => {
-        button.disabled = value;
+        if (button.id !== "refreshOrdersButton") button.disabled = value;
       });
     }
-
     function getFormData() {
       return {
         name: document.getElementById("name").value.trim(),
@@ -135,66 +102,30 @@
         colors: document.getElementById("colors").value.trim()
       };
     }
-
     function resetForm() {
-      productForm.reset();
-      editingId = null;
+      productForm.reset(); editingId = null;
       document.getElementById("formHeading").textContent = "Add New Product";
       document.getElementById("saveButton").textContent = "Save Product";
       document.getElementById("cancelButton").classList.add("hidden");
     }
-
     async function loadProducts() {
       if (!db || busy) return;
       setBusy(true);
       try {
-        const { data, error } = await db
-          .from("products")
-          .select("*")
-          .order("created_at", { ascending: false });
-
+        const { data, error } = await db.from("products").select("*").order("created_at", { ascending: false });
         if (error) throw error;
         productsList.replaceChildren();
-
-        if (!data.length) {
-          productsList.textContent = "No products yet. Add your first product above.";
-        }
-
+        if (!data || !data.length) { productsList.innerHTML = '<div class="empty">No products yet. Add your first product above.</div>'; return; }
         data.forEach(product => {
-          const card = document.createElement("article");
-          card.className = "product";
-
-          const title = document.createElement("h3");
-          title.textContent = product.name;
-
-          const price = document.createElement("p");
-          price.textContent = "$" + Number(product.price_usd).toFixed(2);
-
-          const category = document.createElement("p");
-          category.textContent = "Category: " + product.category;
-
-          const details = document.createElement("p");
-          details.textContent =
-            "Fabric: " + (product.fabric || "Not specified") +
-            " | Accessories: " + (product.accessories || "Not specified");
-
+          const card = document.createElement("article"); card.className = "product";
+          const title = document.createElement("h3"); title.textContent = product.name || "Product";
+          const price = document.createElement("p"); price.textContent = "$" + Number(product.price_usd || 0).toFixed(2) + " USD";
+          const category = document.createElement("p"); category.textContent = "Category: " + (product.category || "—");
+          const details = document.createElement("p"); details.textContent = "Fabric: " + (product.fabric || "Not specified") + " | Details: " + (product.accessories || "Not specified");
           card.append(title, price, category, details);
-
-          if (product.image_url) {
-            const image = document.createElement("img");
-            image.src = product.image_url;
-            image.alt = product.name;
-            image.loading = "lazy";
-            image.onerror = () => image.remove();
-            card.prepend(image);
-          }
-
-          const actions = document.createElement("div");
-          actions.className = "actions";
-
-          const edit = document.createElement("button");
-          edit.type = "button";
-          edit.textContent = "Edit";
+          if (product.image_url) { const image = document.createElement("img"); image.src = product.image_url; image.alt = product.name || "Product"; image.loading = "lazy"; image.onerror = () => image.remove(); card.prepend(image); }
+          const actions = document.createElement("div"); actions.className = "actions";
+          const edit = document.createElement("button"); edit.type = "button"; edit.textContent = "Edit";
           edit.addEventListener("click", () => {
             editingId = product.id;
             document.getElementById("name").value = product.name || "";
@@ -211,134 +142,120 @@
             document.getElementById("cancelButton").classList.remove("hidden");
             window.scrollTo({ top: 0, behavior: "smooth" });
           });
-
-          const remove = document.createElement("button");
-          remove.type = "button";
-          remove.textContent = "Delete";
-          remove.className = "danger";
+          const remove = document.createElement("button"); remove.type = "button"; remove.textContent = "Delete"; remove.className = "danger";
           remove.addEventListener("click", async () => {
             if (busy || !confirm("Delete " + product.name + "?")) return;
             setBusy(true);
-            try {
-              const { error } = await db.from("products")
-                .delete().eq("id", product.id);
-              if (error) throw error;
-              showStatus("Product deleted.");
-              await loadProducts();
-            } catch (error) {
-              showStatus("Delete failed: " + error.message, true);
-            } finally {
-              setBusy(false);
-            }
+            try { const { error } = await db.from("products").delete().eq("id", product.id); if (error) throw error; showStatus("Product deleted."); }
+            catch (error) { showStatus("Delete failed: " + error.message, true); }
+            finally { setBusy(false); await loadProducts(); }
           });
-
-          actions.append(edit, remove);
-          card.append(actions);
-          productsList.append(card);
+          actions.append(edit, remove); card.append(actions); productsList.append(card);
+        });
+      } catch (error) { showStatus("Could not load products: " + error.message, true); }
+      finally { setBusy(false); }
+    }
+    function addText(parent, label, value) {
+      const p = document.createElement("p");
+      const strong = document.createElement("strong"); strong.textContent = label + ": ";
+      p.append(strong, document.createTextNode(value || "—")); parent.append(p);
+    }
+    async function loadOrders() {
+      if (!db || ordersBusy) return;
+      ordersBusy = true;
+      const refresh = document.getElementById("refreshOrdersButton"); if (refresh) refresh.disabled = true;
+      ordersList.innerHTML = '<div class="empty">Loading orders…</div>';
+      try {
+        const { data, error } = await db.from("orders").select("*").order("created_at", { ascending: false }).limit(200);
+        if (error) throw error;
+        document.getElementById("ordersCount").textContent = String((data || []).length);
+        ordersList.replaceChildren();
+        if (!data || !data.length) { ordersList.innerHTML = '<div class="empty">No customer orders yet.</div>'; return; }
+        data.forEach(order => {
+          const card = document.createElement("article"); card.className = "order";
+          const heading = document.createElement("h3"); heading.textContent = order.product_name || "ZAVRIX order";
+          const meta = document.createElement("div"); meta.className = "order-meta";
+          const when = order.created_at ? new Date(order.created_at).toLocaleString() : "Time unavailable";
+          meta.textContent = "Order #" + String(order.id).slice(0, 8).toUpperCase() + " · " + when;
+          card.append(heading, meta);
+          const grid = document.createElement("div"); grid.className = "order-grid";
+          addText(grid, "Customer", order.customer_name);
+          addText(grid, "WhatsApp", order.whatsapp_number);
+          addText(grid, "Email", order.customer_email || "Not provided");
+          addText(grid, "Country", order.country);
+          addText(grid, "Quantity", String(order.quantity || 1));
+          addText(grid, "Size / Color", (order.size || "—") + " / " + (order.color || "—"));
+          addText(grid, "Price", order.price_label || (order.price_usd != null ? "$" + Number(order.price_usd).toFixed(2) : "Confirm price"));
+          addText(grid, "Delivery address", order.delivery_address);
+          addText(grid, "Extra details", order.customer_notes || "None");
+          card.append(grid);
+          const row = document.createElement("div"); row.className = "status-row";
+          const select = document.createElement("select");
+          ["New", "Contacted", "Processing", "Completed", "Cancelled"].forEach(value => {
+            const option = document.createElement("option"); option.value = value; option.textContent = value;
+            if ((order.status || "New") === value) option.selected = true;
+            select.append(option);
+          });
+          const save = document.createElement("button"); save.type = "button"; save.textContent = "Update Status";
+          save.addEventListener("click", async () => {
+            save.disabled = true;
+            try {
+              const { error } = await db.from("orders").update({ status: select.value }).eq("id", order.id);
+              if (error) throw error;
+              showStatus("Order status updated to " + select.value + ".");
+            } catch (error) { showStatus("Could not update order: " + error.message, true); }
+            finally { save.disabled = false; }
+          });
+          row.append(select, save); card.append(row); ordersList.append(card);
         });
       } catch (error) {
-        showStatus("Could not load products: " + error.message, true);
-      } finally {
-        setBusy(false);
-      }
+        ordersList.innerHTML = '<div class="empty">Could not load orders: ' + String(error.message || "Unknown error").replace(/[<>]/g, "") + '</div>';
+        showStatus("Orders table may not be set up yet. Run supabase_orders_setup.sql in Supabase SQL Editor.", true);
+      } finally { ordersBusy = false; if (refresh) refresh.disabled = false; }
     }
 
     document.getElementById("loginForm").addEventListener("submit", async event => {
-      event.preventDefault();
-      if (!configReady || busy) return;
-      setBusy(true);
+      event.preventDefault(); if (!configReady || busy) return; setBusy(true);
       try {
-        const { error } = await db.auth.signInWithPassword({
-          email: document.getElementById("email").value.trim(),
-          password: document.getElementById("password").value
-        });
+        const { error } = await db.auth.signInWithPassword({ email: document.getElementById("email").value.trim(), password: document.getElementById("password").value });
         if (error) throw error;
-
-        loginSection.classList.add("hidden");
-        adminSection.classList.remove("hidden");
-        showStatus("Logged in. You can manage products.");
-        await loadProducts();
-      } catch (error) {
-        showStatus("Login failed: " + error.message, true);
-      } finally {
-        setBusy(false);
-      }
+        loginSection.classList.add("hidden"); adminSection.classList.remove("hidden"); showStatus("Logged in. You can manage products and orders.");
+        setBusy(false); await loadProducts(); await loadOrders();
+      } catch (error) { showStatus("Login failed: " + error.message, true); }
+      finally { setBusy(false); }
     });
 
     productForm.addEventListener("submit", async event => {
-      event.preventDefault();
-      if (busy || !db) return;
-
+      event.preventDefault(); if (busy || !db) return;
       const item = getFormData();
-      if (!item.name || !item.category ||
-          !Number.isFinite(item.price_usd) || item.price_usd < 0) {
-        showStatus("Enter a valid name, category, and price.", true);
-        return;
-      }
-
+      if (!item.name || !item.category || !Number.isFinite(item.price_usd) || item.price_usd < 0) { showStatus("Enter a valid name, category, and price.", true); return; }
       setBusy(true);
       try {
-        const result = editingId === null
-          ? await db.from("products").insert(item)
-          : await db.from("products").update(item).eq("id", editingId);
-
+        const result = editingId === null ? await db.from("products").insert(item) : await db.from("products").update(item).eq("id", editingId);
         if (result.error) throw result.error;
-        showStatus(editingId === null ? "Product added!" : "Product updated!");
-        resetForm();
-        await loadProducts();
-      } catch (error) {
-        showStatus("Save failed: " + error.message, true);
-      } finally {
-        setBusy(false);
-      }
+        showStatus(editingId === null ? "Product added!" : "Product updated!"); resetForm();
+      } catch (error) { showStatus("Save failed: " + error.message, true); }
+      finally { setBusy(false); await loadProducts(); }
     });
 
     document.getElementById("cancelButton").addEventListener("click", resetForm);
     document.getElementById("refreshButton").addEventListener("click", loadProducts);
-
+    document.getElementById("refreshOrdersButton").addEventListener("click", loadOrders);
     document.getElementById("logoutButton").addEventListener("click", async () => {
-      if (busy) return;
-      setBusy(true);
-      try {
-        const { error } = await db.auth.signOut();
-        if (error) throw error;
-        adminSection.classList.add("hidden");
-        loginSection.classList.remove("hidden");
-        resetForm();
-        showStatus("Logged out.");
-      } catch (error) {
-        showStatus("Logout failed: " + error.message, true);
-      } finally {
-        setBusy(false);
-      }
+      if (busy) return; setBusy(true);
+      try { const { error } = await db.auth.signOut(); if (error) throw error; adminSection.classList.add("hidden"); loginSection.classList.remove("hidden"); resetForm(); showStatus("Logged out."); }
+      catch (error) { showStatus("Logout failed: " + error.message, true); }
+      finally { setBusy(false); }
     });
 
     async function start() {
-      if (!configReady) {
-        showStatus("Setup needed: replace both Supabase placeholder values in this file.", true);
-        return;
-      }
-
-      if (!window.supabase) {
-        showStatus("Supabase library did not load. Check your internet connection.", true);
-        return;
-      }
-
+      if (!configReady) { showStatus("Setup needed: check Supabase URL and public key in this file.", true); return; }
+      if (!window.supabase) { showStatus("Supabase library did not load. Check your internet connection.", true); return; }
       db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
       const { data, error } = await db.auth.getSession();
-      if (error) {
-        showStatus("Could not check login: " + error.message, true);
-        return;
-      }
-
-      if (data.session) {
-        loginSection.classList.add("hidden");
-        adminSection.classList.remove("hidden");
-        await loadProducts();
-      }
+      if (error) { showStatus("Could not check login: " + error.message, true); return; }
+      if (data.session) { loginSection.classList.add("hidden"); adminSection.classList.remove("hidden"); await loadProducts(); await loadOrders(); }
     }
-
     start();
   </script>
 </body>

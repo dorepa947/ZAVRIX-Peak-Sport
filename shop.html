@@ -72,7 +72,7 @@ a{color:inherit;text-decoration:none}
 .dialog-copy p{font-size:12px;line-height:1.65;color:var(--s-muted)}
 .dialog-price{font-size:22px;font-weight:800;margin:13px 0}
 .dialog-close{position:absolute;right:10px;top:8px;width:34px;height:34px;border:1px solid #728099;background:#0a0e15;color:white;border-radius:50%;font-size:18px;cursor:pointer}
-.dialog-order{display:inline-flex;margin-top:12px;padding:12px 17px;background:linear-gradient(120deg,#edf2f9,#aebbd0);color:#060910;border-radius:3px;font-size:10px;font-weight:900;letter-spacing:.7px;text-transform:uppercase}
+.dialog-order{display:inline-flex;margin-top:12px;padding:12px 17px;border:1px solid #edf2f9;background:linear-gradient(120deg,#edf2f9,#aebbd0);color:#060910;border-radius:3px;font-size:10px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;cursor:pointer}
 @media(max-width:1100px){.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.product-photo{height:235px}.header{flex-wrap:wrap}.nav{order:3;width:100%;justify-content:center}}
 @media(max-width:700px){.utility{padding:0 12px;font-size:8px}.header{padding:10px 13px;gap:10px}.brand{font-size:19px}.brand-mark{font-size:31px}.brand small{font-size:8px}.nav{justify-content:flex-start;overflow-x:auto;gap:20px}.nav a{white-space:nowrap;font-size:9px}.header-social{margin-left:auto;gap:7px}.header-social a{font-size:10px}.shop-hero{padding:42px 20px}.shop-hero:after{width:120px;height:120px;right:-30px;top:18%}.shop-content{padding:22px 13px 42px}.toolbar{align-items:flex-start;flex-direction:column}.filters{width:100%}.filter-input{flex:1;width:auto;min-width:110px}.filter-select{min-width:115px;flex:1}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-photo{height:180px}.product-details{padding:10px}.product-name{font-size:12px;min-height:34px}.product-description{font-size:10px;min-height:30px}.product-price{font-size:15px}.card-actions{flex-direction:column;gap:6px}.card-btn{min-height:34px}.dialog-inner{grid-template-columns:1fr}.dialog-photo{min-height:220px;max-height:250px}.dialog-copy{padding:20px}.shop-foot{padding:22px 14px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
@@ -126,7 +126,7 @@ a{color:inherit;text-decoration:none}
       <div class="dialog-price" id="dialog-price"></div>
       <p id="dialog-description"></p>
       <p id="dialog-meta"></p>
-      <a class="dialog-order" id="dialog-order" href="#" target="_blank" rel="noopener noreferrer">Order on WhatsApp ↗</a>
+      <button class="dialog-order" id="dialog-order" type="button">ORDER NOW</button>
     </div>
   </div>
 </dialog>
@@ -150,6 +150,7 @@ a{color:inherit;text-decoration:none}
 
   let db = null;
   let allProducts = [];
+  let activeProduct = null;
 
   const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, char => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
@@ -238,12 +239,14 @@ a{color:inherit;text-decoration:none}
     view.className = "card-btn";
     view.textContent = "Quick View";
     view.addEventListener("click", () => openDetails(product));
-    const order = document.createElement("a");
+    const order = document.createElement("button");
+    order.type = "button";
     order.className = "card-btn primary";
-    order.textContent = "Order on WhatsApp";
-    order.target = "_blank";
-    order.rel = "noopener noreferrer";
-    order.href = whatsappLink(product);
+    order.textContent = "Order Now";
+    order.addEventListener("click", () => {
+      if (window.ZavrixOrders) window.ZavrixOrders.open(product);
+      else alert("Order form is loading. Please try again.");
+    });
     actions.append(view,order);
     details.append(category,name,description,price,actions);
     card.append(photo,details);
@@ -258,6 +261,7 @@ a{color:inherit;text-decoration:none}
   }
 
   function openDetails(product){
+    activeProduct = product;
     const image = document.getElementById("dialog-image");
     const imageUrl = safeImageUrl(product.image_url);
     image.src = imageUrl || "";
@@ -274,7 +278,6 @@ a{color:inherit;text-decoration:none}
       product.colors ? "Colors: " + product.colors : ""
     ].filter(Boolean).join(" · ");
     document.getElementById("dialog-meta").textContent = meta;
-    document.getElementById("dialog-order").href = whatsappLink(product);
     if(typeof dialog.showModal === "function") dialog.showModal();
     else dialog.setAttribute("open","");
   }
@@ -343,8 +346,21 @@ a{color:inherit;text-decoration:none}
   sortSelect.addEventListener("change",render);
   document.getElementById("dialog-close").addEventListener("click",()=>dialog.close());
   dialog.addEventListener("click",event=>{if(event.target===dialog) dialog.close();});
-  loadProducts();
+  document.getElementById("dialog-order").addEventListener("click",()=>{
+    if(window.ZavrixOrders && activeProduct) window.ZavrixOrders.open(activeProduct);
+  });
+  loadProducts().then(()=>{
+    const requestedName = new URLSearchParams(window.location.search).get("product");
+    if(!requestedName) return;
+    const match = allProducts.find(product => String(product.name || "").trim().toLowerCase() === requestedName.trim().toLowerCase());
+    if(match) openDetails(match);
+    else stateMessage("Product details are not available yet", "This featured product has not been added to the Shop catalogue by name. Open Admin Panel and add the matching product name first.", true);
+  });
 })();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@5/dist/email.min.js"></script>
+<script src="assets/zavrix-order-flow.js"></script>
+
 </body>
 </html>
