@@ -9,9 +9,9 @@
     supabaseUrl: "https://usecbrtftqfgrqdqdggu.supabase.co",
     supabasePublishableKey: "sb_publishable_jKnx0fRwUhSipbtj7A0MIA_0LupoxmG",
     notificationEmail: "zavrixsport@gmail.com",
-    emailJsPublicKey: "ADD_EMAILJS_PUBLIC_KEY",
-    emailJsServiceId: "ADD_EMAILJS_SERVICE_ID",
-    emailJsTemplateId: "ADD_EMAILJS_TEMPLATE_ID"
+    emailJsPublicKey: "d5DsCPX6nluu97N1Q",
+    emailJsServiceId: "service_gq25lmp",
+    emailJsTemplateId: "template_duj5h3i"
   };
 
   let db = null;
