@@ -161,10 +161,10 @@ a{color:inherit;text-decoration:none}
       .join(" ");
 
     // Check accessories first so words such as "sports" do not affect apparel grouping.
-    if (/\\b(cap|caps|hat|hats|sock|socks|underwear|briefs|boxer|bat|ball|football|soccer ball|accessor(?:y|ies)|glove|bottle|bag|shin guard)\\b/.test(text)) {
+    if (/\b(cap|caps|hat|hats|sock|socks|underwear|briefs|boxer|bat|ball|football|soccer ball|accessor(?:y|ies)|glove|bottle|bag|shin guard)\b/.test(text)) {
       return "accessories";
     }
-    if (/\\b(short|shorts|tank|tank top|vest|training vest)\\b/.test(text)) {
+    if (/\b(short|shorts|tank|tank top|vest|training vest)\b/.test(text)) {
       return "shorts";
     }
     return "men";
